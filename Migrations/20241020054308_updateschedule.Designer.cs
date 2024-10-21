@@ -4,6 +4,7 @@ using DoAn_API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DoAn_API.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241020054308_updateschedule")]
+    partial class updateschedule
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -61,24 +64,6 @@ namespace DoAn_API.Migrations
                     b.ToTable("Appointment", (string)null);
                 });
 
-            modelBuilder.Entity("DoAn_API.Data.Payment", b =>
-                {
-                    b.Property<int>("paymentId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("paymentMethod")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("paymentStatus")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("paymentId");
-
-                    b.ToTable("Payment");
-                });
-
             modelBuilder.Entity("DoAn_API.Data.Role", b =>
                 {
                     b.Property<int>("roleId")
@@ -100,12 +85,6 @@ namespace DoAn_API.Migrations
                 {
                     b.Property<int>("scheduleId")
                         .HasColumnType("int");
-
-                    b.Property<bool>("IsBooked")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<bool>("IsDoctorUnavailable")
-                        .HasColumnType("tinyint(1)");
 
                     b.Property<DateTime>("dateTime")
                         .HasColumnType("datetime(6)");
@@ -259,17 +238,6 @@ namespace DoAn_API.Migrations
                     b.Navigation("schedule");
                 });
 
-            modelBuilder.Entity("DoAn_API.Data.Payment", b =>
-                {
-                    b.HasOne("DoAn_API.Data.Appointment", "appointment")
-                        .WithOne("payment")
-                        .HasForeignKey("DoAn_API.Data.Payment", "paymentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("appointment");
-                });
-
             modelBuilder.Entity("DoAn_API.Data.Schedule", b =>
                 {
                     b.HasOne("DoAn_API.Data.Doctor", "doctor")
@@ -326,12 +294,6 @@ namespace DoAn_API.Migrations
                         .WithOne()
                         .HasForeignKey("DoAn_API.Data.Patient", "userId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("DoAn_API.Data.Appointment", b =>
-                {
-                    b.Navigation("payment")
                         .IsRequired();
                 });
 

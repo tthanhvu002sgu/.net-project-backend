@@ -131,3 +131,4 @@ C:\Users\Vu\source\repos\backend\backend\bin\Debug\net8.0\runtimes\win-x64\nativ
 C:\Users\Vu\source\repos\backend\backend\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Windows.Extensions.dll
 C:\Users\Vu\source\repos\backend\backend\bin\Debug\net8.0\appsettings.json
 C:\Users\Vu\source\repos\backend\backend\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.InMemory.dll
+C:\Users\Vu\source\repos\backend\backend\obj\Debug\net8.0\DoAn_API.sourcelink.json

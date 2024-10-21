@@ -1,9 +1,10 @@
-﻿namespace DoAn_API.Data
+﻿namespace DoAn_API.Models
 {
     public class Schedule
     {
         public DateTime dateTime { get; set; }
         public TimeSpan time;
+        public bool isBooked;
         public int scheduleId;
         public Doctor doctor { get; set; }
         public bool IsBooked { get; set; } // True if a patient has booked this slot

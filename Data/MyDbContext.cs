@@ -27,7 +27,8 @@ namespace DoAn_API.Data
         public DbSet<Patient> Patients { get; set; }
         public DbSet<Schedule> Schedules { get; set; }
         public DbSet<Specialization> Specializations { get; set; }
-
+        public DbSet<User> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -38,29 +39,47 @@ namespace DoAn_API.Data
             //    e.Property(dh => dh.NgayDat).HasDefaultValueSql("current_date()");
             //    e.Property(e => e.Hoten).IsRequired();
             //});
+            modelBuilder.Entity<User>(
+                e =>
+                {
+                    e.HasKey(e => e.userId);
+                    e.HasMany(e => e.roles).WithMany(e => e.users).UsingEntity<Dictionary<string, object>>(
+                       "PatientRole",
+                       e => e.HasOne<Role>().WithMany().HasForeignKey("roleId"),
+                       e => e.HasOne<User>().WithMany().HasForeignKey("userId"),
+                       e =>
+                       {
+                           e.HasKey("userId", "roleId");
+                           e.ToTable("UserRole");
+                       }
 
+                   );
+                }
+            );
             modelBuilder.Entity<Appointment>(
                 e =>
                 {
                     e.ToTable("Appointment");
                     e.HasKey(e => e.appointmentId);
                     e.HasOne(e => e.doctor).WithMany(e => e.appointments).HasForeignKey(e => e.doctorId);
-                    e.HasOne(e => e.schedule).WithOne(e => e.appointment).HasForeignKey<Schedule>(e => e.scheduleId);
+
                     e.HasOne(e => e.patient).WithMany(e => e.appointments).HasForeignKey(e => e.patientId);
+                    e.HasOne(e => e.payment).WithOne(e => e.appointment).HasForeignKey<Payment>(e => e.paymentId);
+                    e.Property(e => e.appointmentStatus).HasConversion<int>();
                 });
             modelBuilder.Entity<Doctor>(
                 e =>
                 {
                     e.ToTable("Doctor");
-                    e.HasKey(e => e.doctorId);
+                    e.HasBaseType<User>();
                     e.HasMany(e => e.schedules).WithOne(e => e.doctor).HasForeignKey(e => e.scheduleId);
                     e.HasMany(e => e.specializations).WithMany(e => e.doctors).UsingEntity<Dictionary<string, object>>(
                         "DoctorSpecialization",
                         e => e.HasOne<Specialization>().WithMany().HasForeignKey("specializationId"),
-                        e => e.HasOne<Doctor>().WithMany().HasForeignKey("doctorId"),
+                        e => e.HasOne<Doctor>().WithMany().HasForeignKey("userId"),
                         e =>
                         {
-                            e.HasKey("doctorId", "specializationId");
+                            e.HasKey("userId", "specializationId");
                             e.ToTable("DoctorSpecialization");
                         }
 
@@ -71,8 +90,10 @@ namespace DoAn_API.Data
             modelBuilder.Entity<Patient>(
                 e =>
                 {
+                    e.HasBaseType<User>();
+
                     e.ToTable("Patient");
-                    e.HasKey(e => e.patientId);
+
                 }
 
             );
@@ -83,6 +104,11 @@ namespace DoAn_API.Data
                     e.HasKey(e => e.scheduleId);
                 }
             );
+            modelBuilder.Entity<Role>(e =>
+            {
+                e.ToTable("Role");
+                e.HasKey(e => e.roleId);
+            });
 
         }
     }

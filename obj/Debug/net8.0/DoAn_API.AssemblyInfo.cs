@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DoAn_API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+538507544ca8133b14785250df8e09756164960d")]
 [assembly: System.Reflection.AssemblyProductAttribute("DoAn_API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DoAn_API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -4,6 +4,7 @@ using DoAn_API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DoAn_API.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241019072802_update")]
+    partial class update
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,12 +33,12 @@ namespace DoAn_API.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("appointmentId"));
 
+                    b.Property<DateTime>("appointmentDate")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<string>("appointmentDescription")
                         .IsRequired()
                         .HasColumnType("longtext");
-
-                    b.Property<int>("appointmentStatus")
-                        .HasColumnType("int");
 
                     b.Property<string>("appointmentTitle")
                         .IsRequired()
@@ -47,8 +50,9 @@ namespace DoAn_API.Migrations
                     b.Property<int>("patientId")
                         .HasColumnType("int");
 
-                    b.Property<int>("scheduleId")
-                        .HasColumnType("int");
+                    b.Property<string>("status")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.HasKey("appointmentId");
 
@@ -56,27 +60,7 @@ namespace DoAn_API.Migrations
 
                     b.HasIndex("patientId");
 
-                    b.HasIndex("scheduleId");
-
                     b.ToTable("Appointment", (string)null);
-                });
-
-            modelBuilder.Entity("DoAn_API.Data.Payment", b =>
-                {
-                    b.Property<int>("paymentId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("paymentMethod")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("paymentStatus")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("paymentId");
-
-                    b.ToTable("Payment");
                 });
 
             modelBuilder.Entity("DoAn_API.Data.Role", b =>
@@ -93,19 +77,13 @@ namespace DoAn_API.Migrations
 
                     b.HasKey("roleId");
 
-                    b.ToTable("Role", (string)null);
+                    b.ToTable("Roles");
                 });
 
             modelBuilder.Entity("DoAn_API.Data.Schedule", b =>
                 {
                     b.Property<int>("scheduleId")
                         .HasColumnType("int");
-
-                    b.Property<bool>("IsBooked")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<bool>("IsDoctorUnavailable")
-                        .HasColumnType("tinyint(1)");
 
                     b.Property<DateTime>("dateTime")
                         .HasColumnType("datetime(6)");
@@ -246,37 +224,26 @@ namespace DoAn_API.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DoAn_API.Data.Schedule", "schedule")
-                        .WithMany()
-                        .HasForeignKey("scheduleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("doctor");
 
                     b.Navigation("patient");
-
-                    b.Navigation("schedule");
-                });
-
-            modelBuilder.Entity("DoAn_API.Data.Payment", b =>
-                {
-                    b.HasOne("DoAn_API.Data.Appointment", "appointment")
-                        .WithOne("payment")
-                        .HasForeignKey("DoAn_API.Data.Payment", "paymentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("appointment");
                 });
 
             modelBuilder.Entity("DoAn_API.Data.Schedule", b =>
                 {
+                    b.HasOne("DoAn_API.Data.Appointment", "appointment")
+                        .WithOne("schedule")
+                        .HasForeignKey("DoAn_API.Data.Schedule", "scheduleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("DoAn_API.Data.Doctor", "doctor")
                         .WithMany("schedules")
                         .HasForeignKey("scheduleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("appointment");
 
                     b.Navigation("doctor");
                 });
@@ -331,7 +298,7 @@ namespace DoAn_API.Migrations
 
             modelBuilder.Entity("DoAn_API.Data.Appointment", b =>
                 {
-                    b.Navigation("payment")
+                    b.Navigation("schedule")
                         .IsRequired();
                 });
 

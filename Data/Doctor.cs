@@ -1,10 +1,7 @@
 ﻿namespace DoAn_API.Data
 {
-    public class Doctor
+    public class Doctor : User
     {
-        public int doctorId { get; set; }
-
-        public string doctorName { get; set; }
         public string degree { get; set; }
         public double experience { get; set; }
         public double bookingFee { get; set; }

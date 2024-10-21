@@ -2,15 +2,14 @@
 {
     public class Patient : User
     {
-        public int patientId { get; set; }
 
 
         //relationship
         public ICollection<Appointment> appointments { get; set; }
-        public Patient()
+        public Patient() : base()
         {
-            this.role = 0;
             appointments = new List<Appointment>();
+            roles.Add(new Role(1, "Patient"));
         }
 
 
