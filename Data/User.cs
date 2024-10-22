@@ -2,6 +2,7 @@
 public class User
 {
     public string email { get; set; }
+    public string image { get; set; }
     public string password { get; set; }
     public string phoneNumber { get; set; }
     public string fullName { get; set; }
