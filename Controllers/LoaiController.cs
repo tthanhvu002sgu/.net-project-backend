@@ -1,5 +1,5 @@
-<<<<<<< HEAD
-﻿//using DoAn_API.Models;
+
+//using DoAn_API.Models;
 //using DoAn_API.Services;
 //using Microsoft.AspNetCore.Http;
 //using Microsoft.AspNetCore.Mvc;
@@ -206,4 +206,4 @@
 //         }
 //     }
 // }
->>>>>>> 168461420528523a06d878c04a6d2324a411875a
+
