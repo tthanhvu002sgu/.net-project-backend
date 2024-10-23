@@ -61,9 +61,6 @@ namespace DoAn_API.Data
                 {
                     e.ToTable("Appointment");
                     e.HasKey(e => e.appointmentId);
-                    e.HasOne(e => e.doctor).WithMany(e => e.appointments).HasForeignKey(e => e.doctorId);
-
-                    e.HasOne(e => e.patient).WithMany(e => e.appointments).HasForeignKey(e => e.patientId);
                     e.HasOne(e => e.payment).WithOne(e => e.appointment).HasForeignKey<Payment>(e => e.paymentId);
                     e.Property(e => e.appointmentStatus).HasConversion<int>();
                 });
@@ -72,6 +69,7 @@ namespace DoAn_API.Data
                 {
                     e.ToTable("Doctor");
                     e.HasBaseType<User>();
+                    e.HasMany(e => e.appointments).WithOne(e => e.doctor).HasForeignKey(e => e.appointmentId);
                     e.HasMany(e => e.schedules).WithOne(e => e.doctor).HasForeignKey(e => e.scheduleId);
                     e.HasMany(e => e.specializations).WithMany(e => e.doctors).UsingEntity<Dictionary<string, object>>(
                         "DoctorSpecialization",
@@ -93,6 +91,7 @@ namespace DoAn_API.Data
                     e.HasBaseType<User>();
 
                     e.ToTable("Patient");
+                    e.HasMany(e => e.appointments).WithOne(e => e.patient).HasForeignKey(e => e.appointmentId);
 
                 }
 

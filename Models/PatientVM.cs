@@ -1,15 +1,15 @@
 ﻿namespace DoAn_API.Models
 {
-    public class Patient : User
+    public class PatientVM : UserVM
     {
 
 
         //relationship
-        public ICollection<Appointment> appointments { get; set; }
-        public Patient() : base()
+        //public ICollection<AppointmentVM> appointments { get; set; }
+        public PatientVM() : base()
         {
-            appointments = new List<Appointment>();
-            roles.Add(new Role(1, "Patient"));
+            // appointments = new List<AppointmentVM>();
+            roles.Add(new RoleVM(1, "Patient"));
         }
 
 

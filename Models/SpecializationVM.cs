@@ -1,13 +1,13 @@
 ﻿namespace DoAn_API.Models
 {
-    public class Specialization
+    public class SpecializationVM
     {
         public string specialization { get; set; }
         public int specializationId { get; set; }
-        public ICollection<Doctor> doctors { get; set; }
-        public Specialization()
+        public ICollection<DoctorVM> doctors { get; set; }
+        public SpecializationVM()
         {
-            doctors = new List<Doctor>();
+            doctors = new List<DoctorVM>();
         }
     }
 }

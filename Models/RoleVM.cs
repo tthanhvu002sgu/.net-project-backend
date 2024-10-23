@@ -1,19 +1,19 @@
 ﻿namespace DoAn_API.Models
 {
-    public class Role
+    public class RoleVM
     {
         public int roleId { get; set; }
         public string roleName { get; set; }
 
-        public ICollection<User> users { get; set; }
-        public Role(int id, string name)
+        public ICollection<UserVM> users { get; set; }
+        public RoleVM(int id, string name)
         {
             roleId = id;
             roleName = name;
         }
-        public Role()
+        public RoleVM()
         {
-            users = new List<User>();
+            users = new List<UserVM>();
         }
     }
 }

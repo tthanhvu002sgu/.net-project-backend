@@ -1,12 +1,11 @@
 ﻿namespace DoAn_API.Models
 {
-    public class Schedule
+    public class ScheduleVM
     {
         public DateTime dateTime { get; set; }
         public TimeSpan time;
-        public bool isBooked;
         public int scheduleId;
-        public Doctor doctor { get; set; }
+        public DoctorVM doctor { get; set; }
         public bool IsBooked { get; set; } // True if a patient has booked this slot
         public bool IsDoctorUnavailable { get; set; } // True if the doctor is unavailable (e.g., vacation, sick)
 

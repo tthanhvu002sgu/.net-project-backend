@@ -8,8 +8,6 @@
             Confirmed = 1,
             Cancelled = 2
         }
-        public int patientId { get; set; }
-        public int doctorId { get; set; }
         public int appointmentId { get; set; }
         public string appointmentTitle { get; set; }
         public string appointmentDescription { get; set; }

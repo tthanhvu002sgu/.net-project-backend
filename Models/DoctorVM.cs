@@ -1,6 +1,6 @@
 ﻿namespace DoAn_API.Models
 {
-    public class Doctor : User
+    public class DoctorVM : UserVM
     {
 
         public string degree { get; set; }
@@ -10,14 +10,14 @@
 
         //relationship
 
-        public ICollection<Appointment> appointments { get; set; }
-        public ICollection<Schedule> schedules { get; set; }
-        public ICollection<Specialization> specializations { get; set; }
-        public Doctor()
+        public ICollection<AppointmentVM> appointments { get; set; }
+        public ICollection<ScheduleVM> schedules { get; set; }
+        public ICollection<SpecializationVM> specializations { get; set; }
+        public DoctorVM()
         {
-            specializations = new List<Specialization>();
-            schedules = new List<Schedule>();
-            appointments = new List<Appointment>();
+            specializations = new List<SpecializationVM>();
+            schedules = new List<ScheduleVM>();
+            appointments = new List<AppointmentVM>();
         }
     }
 }

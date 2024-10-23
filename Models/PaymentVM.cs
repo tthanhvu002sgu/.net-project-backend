@@ -1,11 +1,10 @@
 ﻿namespace DoAn_API.Models
 {
-    public class Payment
+    public class PaymentVM
     {
-        public int UserId {  get; set; }
-        public int AppointmentId {  get; set; }
-        public int PaymentId {  get; set; }
-        public string PaymentMethod {  get; set; }
-        public string PaymentStatus { get; set; }
+        public int paymentId { get; set; }
+        public string paymentMethod { get; set; }
+        public string paymentStatus { get; set; }
+        public AppointmentVM appointment { get; set; }
     }
 }

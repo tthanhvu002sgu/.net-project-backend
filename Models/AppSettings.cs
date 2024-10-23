@@ -1,6 +1,7 @@
 ﻿namespace DoAn_API.Models
 {
-    public class Class
+    public class AppSettings
     {
+        public string SecretKey { get; set; }
     }
 }

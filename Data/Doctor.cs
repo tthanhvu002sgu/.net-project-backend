@@ -12,7 +12,7 @@
         public ICollection<Appointment> appointments { get; set; }
         public ICollection<Schedule> schedules { get; set; }
         public ICollection<Specialization> specializations { get; set; }
-        public Doctor()
+        public Doctor() : base()
         {
             specializations = new List<Specialization>();
             schedules = new List<Schedule>();

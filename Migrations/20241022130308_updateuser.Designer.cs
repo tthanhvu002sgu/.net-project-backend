@@ -4,6 +4,7 @@ using DoAn_API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DoAn_API.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241022130308_updateuser")]
+    partial class updateuser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,7 +28,10 @@ namespace DoAn_API.Migrations
             modelBuilder.Entity("DoAn_API.Data.Appointment", b =>
                 {
                     b.Property<int>("appointmentId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("appointmentId"));
 
                     b.Property<string>("appointmentDescription")
                         .IsRequired()
@@ -38,10 +44,20 @@ namespace DoAn_API.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<int>("doctorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("patientId")
+                        .HasColumnType("int");
+
                     b.Property<int>("scheduleId")
                         .HasColumnType("int");
 
                     b.HasKey("appointmentId");
+
+                    b.HasIndex("doctorId");
+
+                    b.HasIndex("patientId");
 
                     b.HasIndex("scheduleId");
 
@@ -227,13 +243,13 @@ namespace DoAn_API.Migrations
                 {
                     b.HasOne("DoAn_API.Data.Doctor", "doctor")
                         .WithMany("appointments")
-                        .HasForeignKey("appointmentId")
+                        .HasForeignKey("doctorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("DoAn_API.Data.Patient", "patient")
                         .WithMany("appointments")
-                        .HasForeignKey("appointmentId")
+                        .HasForeignKey("patientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
