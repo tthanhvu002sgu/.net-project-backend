@@ -1,5 +1,15 @@
 [
   {
+    "ContainingType": "DoAn_API.Controllers.PatientController",
+    "Method": "GetAll",
+    "RelativePath": "api/Patient",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "DoAn_API.Controllers.UserController",
     "Method": "Validate",
     "RelativePath": "api/User/Login",

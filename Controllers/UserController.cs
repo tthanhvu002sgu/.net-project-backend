@@ -2,7 +2,9 @@
 using DoAn_API.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace DoAn_API.Controllers
 {
@@ -39,14 +41,32 @@ namespace DoAn_API.Controllers
             {
                 success = true,
                 message = "Authenticate success",
-                data = null
+                data = generateToken(user)
             });
         }
 
         private string generateToken(User user)
         {
             var jwtTokenHandler = new JwtSecurityTokenHandler();
-            return null;
+            var secretKeyBytes = System.Text.Encoding.UTF8.GetBytes(_appSettings.SecretKey);
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new[]  {
+                    new Claim(ClaimTypes.Name, user.fullName),
+
+                    new Claim(ClaimTypes.Email, user.email),
+                    new Claim("Id", user.userId.ToString()),
+
+                    //roles
+
+                    new Claim("TokenID", Guid.NewGuid().ToString()),
+                }),
+                Expires = DateTime.UtcNow.AddMinutes(1),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(secretKeyBytes), SecurityAlgorithms.HmacSha256Signature)
+
+            };
+            var token = jwtTokenHandler.CreateToken(tokenDescriptor);
+            return jwtTokenHandler.WriteToken(token);
         }
 
     }

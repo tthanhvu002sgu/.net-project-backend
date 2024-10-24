@@ -1,8 +1,12 @@
 ﻿using DoAn_API.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DoAn_API.Controllers
+
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class PatientController : Controller
     {
         private readonly IPatientRepository _patientRepository;
@@ -11,6 +15,7 @@ namespace DoAn_API.Controllers
             _patientRepository = patientRepository;
         }
         [HttpGet]
+        [Authorize]
         public IActionResult GetAll()
         {
             try
