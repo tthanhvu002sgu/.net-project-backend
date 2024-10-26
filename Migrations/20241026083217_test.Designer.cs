@@ -4,6 +4,7 @@ using DoAn_API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DoAn_API.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241026083217_test")]
+    partial class test
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,102 +51,6 @@ namespace DoAn_API.Migrations
                     b.ToTable("Appointment", (string)null);
                 });
 
-            modelBuilder.Entity("DoAn_API.Data.Doctor", b =>
-                {
-                    b.Property<int>("userId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("address")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<double>("bookingFee")
-                        .HasColumnType("double");
-
-                    b.Property<string>("degree")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<DateTime>("dob")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("doctorAbout")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("email")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<double>("experience")
-                        .HasColumnType("double");
-
-                    b.Property<string>("fullName")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("gender")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("image")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("password")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("phoneNumber")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("userId");
-
-                    b.ToTable("Doctor", (string)null);
-                });
-
-            modelBuilder.Entity("DoAn_API.Data.Patient", b =>
-                {
-                    b.Property<int>("userId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("address")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<DateTime>("dob")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("email")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("fullName")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("gender")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("image")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("password")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("phoneNumber")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("userId");
-
-                    b.ToTable("Patient", (string)null);
-                });
-
             modelBuilder.Entity("DoAn_API.Data.Payment", b =>
                 {
                     b.Property<int>("paymentId")
@@ -174,12 +81,7 @@ namespace DoAn_API.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int?>("userId")
-                        .HasColumnType("int");
-
                     b.HasKey("roleId");
-
-                    b.HasIndex("userId");
 
                     b.ToTable("Role", (string)null);
                 });
@@ -262,21 +164,8 @@ namespace DoAn_API.Migrations
                     b.HasKey("userId");
 
                     b.ToTable("Users");
-                });
 
-            modelBuilder.Entity("DoctorRole", b =>
-                {
-                    b.Property<int>("userId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("roleId")
-                        .HasColumnType("int");
-
-                    b.HasKey("userId", "roleId");
-
-                    b.HasIndex("roleId");
-
-                    b.ToTable("DoctorRole", (string)null);
+                    b.UseTptMappingStrategy();
                 });
 
             modelBuilder.Entity("DoctorSpecialization", b =>
@@ -306,7 +195,35 @@ namespace DoAn_API.Migrations
 
                     b.HasIndex("roleId");
 
-                    b.ToTable("PatientRole", (string)null);
+                    b.ToTable("UserRole", (string)null);
+                });
+
+            modelBuilder.Entity("DoAn_API.Data.Doctor", b =>
+                {
+                    b.HasBaseType("DoAn_API.Data.User");
+
+                    b.Property<double>("bookingFee")
+                        .HasColumnType("double");
+
+                    b.Property<string>("degree")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("doctorAbout")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<double>("experience")
+                        .HasColumnType("double");
+
+                    b.ToTable("Doctor", (string)null);
+                });
+
+            modelBuilder.Entity("DoAn_API.Data.Patient", b =>
+                {
+                    b.HasBaseType("DoAn_API.Data.User");
+
+                    b.ToTable("Patient", (string)null);
                 });
 
             modelBuilder.Entity("DoAn_API.Data.Appointment", b =>
@@ -336,24 +253,6 @@ namespace DoAn_API.Migrations
                     b.Navigation("schedule");
                 });
 
-            modelBuilder.Entity("DoAn_API.Data.Doctor", b =>
-                {
-                    b.HasOne("DoAn_API.Data.User", null)
-                        .WithOne()
-                        .HasForeignKey("DoAn_API.Data.Doctor", "userId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("DoAn_API.Data.Patient", b =>
-                {
-                    b.HasOne("DoAn_API.Data.User", null)
-                        .WithOne()
-                        .HasForeignKey("DoAn_API.Data.Patient", "userId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("DoAn_API.Data.Payment", b =>
                 {
                     b.HasOne("DoAn_API.Data.Appointment", "appointment")
@@ -365,13 +264,6 @@ namespace DoAn_API.Migrations
                     b.Navigation("appointment");
                 });
 
-            modelBuilder.Entity("DoAn_API.Data.Role", b =>
-                {
-                    b.HasOne("DoAn_API.Data.User", null)
-                        .WithMany("roles")
-                        .HasForeignKey("userId");
-                });
-
             modelBuilder.Entity("DoAn_API.Data.Schedule", b =>
                 {
                     b.HasOne("DoAn_API.Data.Doctor", "doctor")
@@ -381,21 +273,6 @@ namespace DoAn_API.Migrations
                         .IsRequired();
 
                     b.Navigation("doctor");
-                });
-
-            modelBuilder.Entity("DoctorRole", b =>
-                {
-                    b.HasOne("DoAn_API.Data.Role", null)
-                        .WithMany()
-                        .HasForeignKey("roleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DoAn_API.Data.Doctor", null)
-                        .WithMany()
-                        .HasForeignKey("userId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("DoctorSpecialization", b =>
@@ -421,9 +298,27 @@ namespace DoAn_API.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DoAn_API.Data.Patient", null)
+                    b.HasOne("DoAn_API.Data.User", null)
                         .WithMany()
                         .HasForeignKey("userId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("DoAn_API.Data.Doctor", b =>
+                {
+                    b.HasOne("DoAn_API.Data.User", null)
+                        .WithOne()
+                        .HasForeignKey("DoAn_API.Data.Doctor", "userId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("DoAn_API.Data.Patient", b =>
+                {
+                    b.HasOne("DoAn_API.Data.User", null)
+                        .WithOne()
+                        .HasForeignKey("DoAn_API.Data.Patient", "userId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -444,11 +339,6 @@ namespace DoAn_API.Migrations
             modelBuilder.Entity("DoAn_API.Data.Patient", b =>
                 {
                     b.Navigation("appointments");
-                });
-
-            modelBuilder.Entity("DoAn_API.Data.User", b =>
-                {
-                    b.Navigation("roles");
                 });
 #pragma warning restore 612, 618
         }

@@ -43,17 +43,6 @@ namespace DoAn_API.Data
                 e =>
                 {
                     e.HasKey(e => e.userId);
-                    e.HasMany(e => e.roles).WithMany(e => e.users).UsingEntity<Dictionary<string, object>>(
-                       "PatientRole",
-                       e => e.HasOne<Role>().WithMany().HasForeignKey("roleId"),
-                       e => e.HasOne<User>().WithMany().HasForeignKey("userId"),
-                       e =>
-                       {
-                           e.HasKey("userId", "roleId");
-                           e.ToTable("UserRole");
-                       }
-
-                   );
                 }
             );
             modelBuilder.Entity<Appointment>(
@@ -68,9 +57,26 @@ namespace DoAn_API.Data
                 e =>
                 {
                     e.ToTable("Doctor");
-                    e.HasBaseType<User>();
+                    e.HasKey(e => e.userId);
+
+                    // Thiết lập mối quan hệ với bảng User
+                    e.HasOne<User>()
+                     .WithOne()
+                     .HasForeignKey<Doctor>(d => d.userId)
+                     .OnDelete(DeleteBehavior.Cascade); // Tùy chọn: xóa cascade;
                     e.HasMany(e => e.appointments).WithOne(e => e.doctor).HasForeignKey(e => e.appointmentId);
                     e.HasMany(e => e.schedules).WithOne(e => e.doctor).HasForeignKey(e => e.scheduleId);
+                    e.HasMany(e => e.roles).WithMany(e => e.doctors).UsingEntity<Dictionary<string, object>>(
+                        "DoctorRole",
+                        e => e.HasOne<Role>().
+                        WithMany().HasForeignKey("roleId"),
+                        e => e.HasOne<Doctor>().
+                        WithMany().HasForeignKey("userId"),
+                        e =>
+                        {
+                            e.HasKey("userId", "roleId");
+                            e.ToTable("DoctorRole");
+                        });
                     e.HasMany(e => e.specializations).WithMany(e => e.doctors).UsingEntity<Dictionary<string, object>>(
                         "DoctorSpecialization",
                         e => e.HasOne<Specialization>().WithMany().HasForeignKey("specializationId"),
@@ -85,12 +91,27 @@ namespace DoAn_API.Data
 
 
                 });
+
             modelBuilder.Entity<Patient>(
                 e =>
                 {
-                    e.HasBaseType<User>();
-
                     e.ToTable("Patient");
+                    e.HasMany(e => e.roles).WithMany(e => e.patients).UsingEntity<Dictionary<string, object>>(
+                        "PatientRole",
+                        e => e.HasOne<Role>().
+                        WithMany().HasForeignKey("roleId"),
+                        e => e.HasOne<Patient>().
+                        WithMany().HasForeignKey("userId"),
+                        e =>
+                        {
+                            e.HasKey("userId", "roleId");
+                            e.ToTable("PatientRole");
+                        });
+                    e.HasKey(e => e.userId);
+                    e.HasOne<User>()
+                     .WithOne()
+                     .HasForeignKey<Patient>(p => p.userId)
+                     .OnDelete(DeleteBehavior.Cascade); // Tùy chọn: xóa cascade;  // userId là khóa ngoại tới bảng User
                     e.HasMany(e => e.appointments).WithOne(e => e.patient).HasForeignKey(e => e.appointmentId);
 
                 }

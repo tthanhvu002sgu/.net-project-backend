@@ -5,15 +5,14 @@
         public int roleId { get; set; }
         public string roleName { get; set; }
 
-        public ICollection<User> users { get; set; }
-        public Role(int id, string name)
-        {
-            roleId = id;
-            roleName = name;
-        }
-        public Role()
-        {
-            users = new List<User>();
-        }
+        public ICollection<Doctor> doctors { get; set; }
+
+        public ICollection<Patient> patients { get; set; }
+        //public Role(int id, string name)
+        //{
+        //    roleId = id;
+        //    roleName = name;
+        //}
+
     }
 }
