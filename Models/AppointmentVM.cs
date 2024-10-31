@@ -10,7 +10,7 @@ namespace DoAn_API.Models
             Confirmed = 1,
             Cancelled = 2
         }
-        public int appointmentId { get; set; }
+        public string appointmentId { get; set; }
         public string appointmentTitle { get; set; }
         public string appointmentDescription { get; set; }
         public Doctor doctor { get; set; }

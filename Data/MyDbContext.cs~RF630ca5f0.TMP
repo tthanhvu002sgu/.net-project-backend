@@ -28,7 +28,7 @@ namespace DoAn_API.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
+            // Đảm bảo Identity được cấu hình
             base.OnModelCreating(modelBuilder);
             //modelBuilder.Entity<DonHang>(e =>
             //{
@@ -37,15 +37,18 @@ namespace DoAn_API.Data
             //    e.Property(dh => dh.NgayDat).HasDefaultValueSql("current_date()");
             //    e.Property(e => e.Hoten).IsRequired();
             //});
-
-
-
+            //modelBuilder.Entity<User>(
+            //    e =>
+            //    {
+            //        e.HasKey(e => e.userId);
+            //    }
+            //);
             modelBuilder.Entity<Appointment>(
                 e =>
                 {
                     e.ToTable("Appointment");
                     e.HasKey(e => e.appointmentId);
-                    e.HasOne(e => e.payment).WithOne(e => e.appointment).HasForeignKey<Payment>(e => e.appointmentId);
+                    e.HasOne(e => e.payment).WithOne(e => e.appointment).HasForeignKey<Payment>(e => e.paymentId);
                     e.Property(e => e.appointmentStatus).HasConversion<int>();
 
                 });
@@ -55,9 +58,9 @@ namespace DoAn_API.Data
                     e.ToTable("Doctor");
                     e.HasKey(e => e.doctorId);
 
-                    // Đúng - cần sử dụng doctorId làm khóa ngoại
-                    e.HasMany(e => e.appointments).WithOne(e => e.doctor).HasForeignKey(e => e.doctorId);
-                    e.HasMany(e => e.schedules).WithOne(e => e.doctor).HasForeignKey(e => e.doctorId);
+
+                    e.HasMany(e => e.appointments).WithOne(e => e.doctor).HasForeignKey(e => e.appointmentId);
+                    e.HasMany(e => e.schedules).WithOne(e => e.doctor).HasForeignKey(e => e.scheduleId);
 
                     e.HasMany(e => e.specializations).WithMany(e => e.doctors).UsingEntity<Dictionary<string, object>>(
                         "DoctorSpecialization",
@@ -81,8 +84,7 @@ namespace DoAn_API.Data
 
                     e.HasKey(e => e.patientId);
 
-                    // Đúng
-                    e.HasMany(e => e.appointments).WithOne(e => e.patient).HasForeignKey(e => e.patientId);
+                    e.HasMany(e => e.appointments).WithOne(e => e.patient).HasForeignKey(e => e.appointmentId);
 
                 }
 

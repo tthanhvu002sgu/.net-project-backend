@@ -2,6 +2,8 @@
 {
     public class Schedule
     {
+        public int doctorId { get; set; }
+
         public DateTime dateTime { get; set; }
         public TimeSpan time;
         public int scheduleId;

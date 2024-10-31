@@ -1,8 +1,9 @@
 ﻿namespace DoAn_API.Models
 {
-    public class DoctorVM : UserVM
+    public class DoctorVM
     {
-
+        public string email { get; set; }
+        public string doctorId { get; set; }
         public string degree { get; set; }
         public double experience { get; set; }
         public double bookingFee { get; set; }

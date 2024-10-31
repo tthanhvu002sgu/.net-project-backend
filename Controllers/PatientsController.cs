@@ -1,4 +1,5 @@
-﻿using DoAn_API.Models;
+﻿using DoAn_API.Data;
+using DoAn_API.Models;
 using DoAn_API.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -18,7 +19,7 @@ namespace DoAn_API.Controllers
 
         // GET: api/patients [admin]
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = AppRole.Admin)]
         public IActionResult GetAllPatients()
         {
             return Ok(_patientRepository.GetAll());
@@ -37,9 +38,9 @@ namespace DoAn_API.Controllers
 
         // PUT: api/patients/{patientId} [patient, admin]
         [HttpPut("{patientId}")]
-        public IActionResult UpdatePatient(int patientId, PatientVM patient)
+        public IActionResult UpdatePatient(int id, PatientVM patient)
         {
-            if (patientId != patient.userId)
+            if (id.CompareTo(patient.patientId) != 0)
                 return BadRequest();
 
             _patientRepository.Update(patient);

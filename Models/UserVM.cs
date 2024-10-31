@@ -1,6 +1,4 @@
-﻿using DoAn_API.Models;
-
-public class UserVM
+﻿public class UserVM
 {
     public string email { get; set; }
     public string image { get; set; }
@@ -11,9 +9,7 @@ public class UserVM
     public string gender { get; set; }
     public string address { get; set; }
     public int userId { get; set; }
-    public ICollection<RoleVM> roles { get; set; }
     public UserVM()
     {
-        roles = new List<RoleVM>();
     }
 }

@@ -4,6 +4,7 @@ using DoAn_API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DoAn_API.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241031053057_initdb")]
+    partial class initdb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -156,20 +159,22 @@ namespace DoAn_API.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("doctorId"));
 
-                    b.Property<double?>("bookingFee")
+                    b.Property<double>("bookingFee")
                         .HasColumnType("double");
 
                     b.Property<string>("degree")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("doctorAbout")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("email")
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<double?>("experience")
+                    b.Property<double>("experience")
                         .HasColumnType("double");
 
                     b.HasKey("doctorId");

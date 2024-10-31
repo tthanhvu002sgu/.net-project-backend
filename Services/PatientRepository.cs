@@ -15,103 +15,83 @@ namespace DoAn_API.Services
         {
             var newPatient = new Patient
             {
-                email = patient.email,
-                password = patient.password,
-                image = patient.image,
-                phoneNumber = patient.phoneNumber,
-                fullName = patient.fullName,
-                address = patient.address,
-                gender = patient.gender,
-                dob = patient.dob,
+
             };
             _context.Add(newPatient);
             _context.SaveChanges();
             return new PatientVM
             {
-                userId = newPatient.userId,
-                email = newPatient.email,
-                password = newPatient.password,
-                image = newPatient.image,
-                phoneNumber = newPatient.phoneNumber,
-                fullName = newPatient.fullName,
-                address = newPatient.address,
-                gender = newPatient.gender,
-                dob = newPatient.dob,
+
             };
         }
 
         public void Delete(int id)
         {
-            var patient = _context.Patients.SingleOrDefault(patient => patient.userId == id);
+            var patient = _context.Patients.SingleOrDefault(patient => patient.patientId == id);
             if (patient != null)
             {
-                if (!IsPatientUser(patient))
-                {
-                    return;
-                };
+
 
                 _context.Patients.Remove(patient);
                 _context.SaveChanges();
             }
         }
 
-        public List<PatientVM> GetAll()
-        {
-            var patients = _context.Patients.Select(patient => new PatientVM { userId = patient.userId, email = patient.email, password = patient.password, image = patient.image, phoneNumber = patient.phoneNumber, fullName = patient.fullName, address = patient.address, gender = patient.gender, dob = patient.dob });
-            return patients.ToList();
-        }
+        //public List<PatientVM> GetAll()
+        //{
 
-        public PatientVM GetPatientVM(int id)
-        {
-            var patient = _context.Patients.SingleOrDefault(patient => patient.userId == id);
-            if (patient != null)
-            {
-                //if (!IsPatientUser(patient))
-                //{
-                //    return null;
-                //};
+        //    var patients = _context.Patients.Select(patient => new PatientVM { userId = patient.patientId, email = patient.email, password = patient.password, image = patient.image, phoneNumber = patient.phoneNumber, fullName = patient.fullName, address = patient.address, gender = patient.gender, dob = patient.dob });
+        //    return patients.ToList();
+        //}
 
-                return new PatientVM
-                {
-                    userId = patient.userId,
-                    email = patient.email,
-                    password = patient.password,
-                    image = patient.image,
-                    phoneNumber = patient.phoneNumber,
-                    fullName = patient.fullName,
-                    address = patient.address,
-                    gender = patient.gender,
-                    dob = patient.dob
-                };
-            }
-            else
-            {
-                return null;
-            }
-        }
+        //public PatientVM GetPatientVM(int id)
+        //{
+        //    var patient = _context.Patients.SingleOrDefault(patient => patient.patientId == id);
+        //    if (patient != null)
+        //    {
+        //        //if (!IsPatientUser(patient))
+        //        //{
+        //        //    return null;
+        //        //};
 
-        public void Update(PatientVM patient)
-        {
-            var type = _context.Patients.SingleOrDefault(patient => patient.userId == patient.userId);
+        //        return new PatientVM
+        //        {
+        //            userId = patient.userId,
+        //            email = patient.email,
+        //            password = patient.password,
+        //            image = patient.image,
+        //            phoneNumber = patient.phoneNumber,
+        //            fullName = patient.fullName,
+        //            address = patient.address,
+        //            gender = patient.gender,
+        //            dob = patient.dob
+        //        };
+        //    }
+        //    else
+        //    {
+        //        return null;
+        //    }
+        //}
 
-            if (type != null)
-            {
-                if (!IsPatientUser(type))
-                {
-                    return;
-                };
+        //public void Update(PatientVM patient)
+        //{
+        //    var type = _context.Patients.SingleOrDefault(patient => patient.userId == patient.userId);
 
-                type.email = patient.email;
-                type.password = patient.password;
-                type.image = patient.image;
-                type.phoneNumber = patient.phoneNumber;
-                type.fullName = patient.fullName;
-                type.address = patient.address;
-                type.gender = patient.gender;
-                type.dob = patient.dob;
-                _context.SaveChanges();
-            }
-        }
+        //    if (type != null)
+        //    {
+
+
+        //        type.email = patient.email;
+        //        type.password = patient.password;
+        //        type.image = patient.image;
+        //        type.phoneNumber = patient.phoneNumber;
+        //        type.fullName = patient.fullName;
+        //        type.address = patient.address;
+        //        type.gender = patient.gender;
+        //        type.dob = patient.dob;
+        //        _context.SaveChanges();
+        //    }
+        //}
 
         public async Task CreatePatient(Patient patient)
         {
@@ -120,22 +100,21 @@ namespace DoAn_API.Services
             await _context.SaveChangesAsync();
         }
 
-        public bool IsPatientUser(Patient patient)
+        public List<PatientVM> GetAll()
         {
-            if (patient.roles == null)
-            {
-                return false;
-            }
+            throw new NotImplementedException();
+        }
 
-            foreach (var role in patient.roles)
-            {
-                if (role.roleId != 1)
-                {
-                    return false;
-                }
-            }
 
-            return true;
+
+        public void Update(PatientVM patient)
+        {
+            throw new NotImplementedException();
+        }
+
+        public PatientVM GetPatientVM(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

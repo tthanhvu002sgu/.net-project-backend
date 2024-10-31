@@ -7,7 +7,7 @@
     }
   },
   "ConnectionStrings": {
-    "default": "server=localhost;database=bookingcare;user=vu123;password=vu123;port=3306;AllowZeroDateTime=True;ConvertZeroDateTime=True"
+    "default": "server=localhost;database=bookingcare1;user=admin;port=3306;AllowZeroDateTime=True;ConvertZeroDateTime=True"
   },
   "AllowedHosts": "*",
   "JWT": {

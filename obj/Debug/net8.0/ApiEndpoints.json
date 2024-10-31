@@ -34,13 +34,18 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "patientId",
+        "Name": "id",
         "Type": "System.Int32",
-        "IsRequired": true
+        "IsRequired": false
       },
       {
         "Name": "patient",
         "Type": "DoAn_API.Models.PatientVM",
+        "IsRequired": true
+      },
+      {
+        "Name": "patientId",
+        "Type": "",
         "IsRequired": true
       }
     ],
@@ -64,15 +69,31 @@
   },
   {
     "ContainingType": "DoAn_API.Controllers.UserController",
-    "Method": "Validate",
-    "RelativePath": "api/User/Login",
+    "Method": "SignIn",
+    "RelativePath": "api/User/SignIn",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "loginVM",
-        "Type": "DoAn_API.Models.LoginVM",
+        "Name": "signInVM",
+        "Type": "DoAn_API.Models.SignInVM",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DoAn_API.Controllers.UserController",
+    "Method": "SignUp",
+    "RelativePath": "api/User/SignUp",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "signUpVM",
+        "Type": "DoAn_API.Models.SignUpVM",
         "IsRequired": true
       }
     ],

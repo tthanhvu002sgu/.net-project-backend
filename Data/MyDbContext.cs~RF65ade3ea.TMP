@@ -37,7 +37,12 @@ namespace DoAn_API.Data
             //    e.Property(dh => dh.NgayDat).HasDefaultValueSql("current_date()");
             //    e.Property(e => e.Hoten).IsRequired();
             //});
-
+            modelBuilder.Entity<ApplicationUser>(e =>
+            {
+                e.HasOne(a => a.Doctor)
+                .WithOne(d => d.ApplicationUser);
+                e.HasOne(a => a.Patient).WithOne(p => p.ApplicationUser);
+            });
 
 
             modelBuilder.Entity<Appointment>(
@@ -45,7 +50,7 @@ namespace DoAn_API.Data
                 {
                     e.ToTable("Appointment");
                     e.HasKey(e => e.appointmentId);
-                    e.HasOne(e => e.payment).WithOne(e => e.appointment).HasForeignKey<Payment>(e => e.appointmentId);
+                    e.HasOne(e => e.payment).WithOne(e => e.appointment).HasForeignKey<Payment>(e => e.paymentId);
                     e.Property(e => e.appointmentStatus).HasConversion<int>();
 
                 });
@@ -54,10 +59,10 @@ namespace DoAn_API.Data
                 {
                     e.ToTable("Doctor");
                     e.HasKey(e => e.doctorId);
+                    e.Property(e => e.doctorId).ValueGeneratedOnAdd();
 
-                    // Đúng - cần sử dụng doctorId làm khóa ngoại
-                    e.HasMany(e => e.appointments).WithOne(e => e.doctor).HasForeignKey(e => e.doctorId);
-                    e.HasMany(e => e.schedules).WithOne(e => e.doctor).HasForeignKey(e => e.doctorId);
+                    e.HasMany(e => e.appointments).WithOne(e => e.doctor).HasForeignKey(e => e.appointmentId);
+                    e.HasMany(e => e.schedules).WithOne(e => e.doctor).HasForeignKey(e => e.scheduleId);
 
                     e.HasMany(e => e.specializations).WithMany(e => e.doctors).UsingEntity<Dictionary<string, object>>(
                         "DoctorSpecialization",
@@ -80,9 +85,9 @@ namespace DoAn_API.Data
                     e.ToTable("Patient");
 
                     e.HasKey(e => e.patientId);
+                    e.Property(e => e.patientId).ValueGeneratedOnAdd();
 
-                    // Đúng
-                    e.HasMany(e => e.appointments).WithOne(e => e.patient).HasForeignKey(e => e.patientId);
+                    e.HasMany(e => e.appointments).WithOne(e => e.patient).HasForeignKey(e => e.appointmentId);
 
                 }
 

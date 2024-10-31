@@ -29,7 +29,7 @@ namespace DoAn_API.Controllers
             }
             else
             {
-                return BadRequest(new { Errors = result.Errors.Select(e => e.Description) });
+                return Unauthorized();
             }
         }
 
@@ -37,7 +37,7 @@ namespace DoAn_API.Controllers
         public async Task<IActionResult> SignIn(SignInVM signInVM)
         {
             var result = await accountRepo.SignInAsync(signInVM);
-            if (string.IsNullOrEmpty(result))
+            if (result.Succeeded == false)
             {
                 return Unauthorized();
             }
