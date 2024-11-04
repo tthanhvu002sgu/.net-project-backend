@@ -2,6 +2,7 @@
 {
     public class Payment
     {
+        public int patientId { get; set; }
         public int appointmentId { get; set; }
         public int paymentId { get; set; }
         public string paymentMethod { get; set; }

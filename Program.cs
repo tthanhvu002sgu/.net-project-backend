@@ -1,4 +1,4 @@
-using DoAn_API.Data;
+﻿using DoAn_API.Data;
 using DoAn_API.Models;
 using DoAn_API.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -39,7 +39,14 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-
+// Cấu hình dịch vụ CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowReactApp",
+        policy => policy.WithOrigins("http://localhost:5173") // URL của ReactJS
+                        .AllowAnyHeader()
+                        .AllowAnyMethod());
+});
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -59,7 +66,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
-
+// Áp dụng CORS
+app.UseCors("AllowReactApp");
 
 app.MapControllers();
 

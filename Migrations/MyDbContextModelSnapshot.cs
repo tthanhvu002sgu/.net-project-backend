@@ -134,6 +134,9 @@ namespace DoAn_API.Migrations
                     b.Property<int>("patientId")
                         .HasColumnType("int");
 
+                    b.Property<int>("paymentId")
+                        .HasColumnType("int");
+
                     b.Property<int>("scheduleId")
                         .HasColumnType("int");
 
@@ -172,7 +175,12 @@ namespace DoAn_API.Migrations
                     b.Property<double?>("experience")
                         .HasColumnType("double");
 
+                    b.Property<int>("specializationId")
+                        .HasColumnType("int");
+
                     b.HasKey("doctorId");
+
+                    b.HasIndex("specializationId");
 
                     b.ToTable("Doctor", (string)null);
                 });
@@ -203,6 +211,9 @@ namespace DoAn_API.Migrations
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("paymentId"));
 
                     b.Property<int>("appointmentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("patientId")
                         .HasColumnType("int");
 
                     b.Property<string>("paymentMethod")
@@ -256,6 +267,9 @@ namespace DoAn_API.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("specializationId"));
 
+                    b.Property<int>("doctorId")
+                        .HasColumnType("int");
+
                     b.Property<string>("specialization")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -263,21 +277,6 @@ namespace DoAn_API.Migrations
                     b.HasKey("specializationId");
 
                     b.ToTable("Specializations");
-                });
-
-            modelBuilder.Entity("DoctorSpecialization", b =>
-                {
-                    b.Property<int>("doctorId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("specializationId")
-                        .HasColumnType("int");
-
-                    b.HasKey("doctorId", "specializationId");
-
-                    b.HasIndex("specializationId");
-
-                    b.ToTable("DoctorSpecialization", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -439,6 +438,17 @@ namespace DoAn_API.Migrations
                     b.Navigation("schedule");
                 });
 
+            modelBuilder.Entity("DoAn_API.Data.Doctor", b =>
+                {
+                    b.HasOne("DoAn_API.Data.Specialization", "specialization")
+                        .WithMany("doctors")
+                        .HasForeignKey("specializationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("specialization");
+                });
+
             modelBuilder.Entity("DoAn_API.Data.Payment", b =>
                 {
                     b.HasOne("DoAn_API.Data.Appointment", "appointment")
@@ -459,21 +469,6 @@ namespace DoAn_API.Migrations
                         .IsRequired();
 
                     b.Navigation("doctor");
-                });
-
-            modelBuilder.Entity("DoctorSpecialization", b =>
-                {
-                    b.HasOne("DoAn_API.Data.Doctor", null)
-                        .WithMany()
-                        .HasForeignKey("doctorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DoAn_API.Data.Specialization", null)
-                        .WithMany()
-                        .HasForeignKey("specializationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -543,6 +538,11 @@ namespace DoAn_API.Migrations
             modelBuilder.Entity("DoAn_API.Data.Patient", b =>
                 {
                     b.Navigation("appointments");
+                });
+
+            modelBuilder.Entity("DoAn_API.Data.Specialization", b =>
+                {
+                    b.Navigation("doctors");
                 });
 #pragma warning restore 612, 618
         }

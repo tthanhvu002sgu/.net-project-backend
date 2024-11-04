@@ -2,6 +2,8 @@
 {
     public class Specialization
     {
+        public int doctorId { get; set; }
+
         public string specialization { get; set; }
         public int specializationId { get; set; }
         public ICollection<Doctor> doctors { get; set; }
@@ -9,5 +11,6 @@
         {
             doctors = new List<Doctor>();
         }
+
     }
 }

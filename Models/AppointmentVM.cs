@@ -1,9 +1,10 @@
-﻿using DoAn_API.Data;
-
-namespace DoAn_API.Models
+﻿namespace DoAn_API.Models
 {
     public class AppointmentVM
     {
+        public int patientId { get; set; }
+        public int doctorId { get; set; }
+        public int paymentId { get; set; }
         public enum Status
         {
             Pending = 0,
@@ -13,10 +14,6 @@ namespace DoAn_API.Models
         public string appointmentId { get; set; }
         public string appointmentTitle { get; set; }
         public string appointmentDescription { get; set; }
-        public Doctor doctor { get; set; }
         public Status appointmentStatus { get; set; }
-        public Patient patient { get; set; }
-        public Schedule schedule { get; set; }
-        public Payment payment { get; set; }
     }
 }

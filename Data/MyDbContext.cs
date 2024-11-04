@@ -55,21 +55,10 @@ namespace DoAn_API.Data
                     e.ToTable("Doctor");
                     e.HasKey(e => e.doctorId);
 
-                    // Đúng - cần sử dụng doctorId làm khóa ngoại
                     e.HasMany(e => e.appointments).WithOne(e => e.doctor).HasForeignKey(e => e.doctorId);
                     e.HasMany(e => e.schedules).WithOne(e => e.doctor).HasForeignKey(e => e.doctorId);
 
-                    e.HasMany(e => e.specializations).WithMany(e => e.doctors).UsingEntity<Dictionary<string, object>>(
-                        "DoctorSpecialization",
-                        e => e.HasOne<Specialization>().WithMany().HasForeignKey("specializationId"),
-                        e => e.HasOne<Doctor>().WithMany().HasForeignKey("doctorId"),
-                        e =>
-                        {
-                            e.HasKey("doctorId", "specializationId");
-                            e.ToTable("DoctorSpecialization");
-                        }
-
-                    );
+                    e.HasOne(e => e.specialization).WithMany(e => e.doctors).HasForeignKey(e => e.specializationId).OnDelete(DeleteBehavior.Cascade);
 
 
                 });

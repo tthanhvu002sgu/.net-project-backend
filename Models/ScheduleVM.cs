@@ -2,10 +2,10 @@
 {
     public class ScheduleVM
     {
+        public int doctorId { get; set; }
         public DateTime dateTime { get; set; }
         public TimeSpan time;
         public string scheduleId;
-        public DoctorVM doctor { get; set; }
         public bool IsBooked { get; set; } // True if a patient has booked this slot
         public bool IsDoctorUnavailable { get; set; } // True if the doctor is unavailable (e.g., vacation, sick)
 
