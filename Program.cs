@@ -16,6 +16,7 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<MyDbContext>(options => options.UseInMemoryDatabase("bookingcare"));
 //builder.Services.AddTransient<ITypeRepository, TypeRepository>();
 builder.Services.AddTransient<IPatientRepository, PatientRepository>();
+builder.Services.AddTransient<ISpecializationService, SpecializationService>();
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<MyDbContext>().AddDefaultTokenProviders();
