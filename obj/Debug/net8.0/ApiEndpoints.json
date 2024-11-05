@@ -68,6 +68,115 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "DoAn_API.Controllers.SpecializationController",
+    "Method": "GetAllSpecializations",
+    "RelativePath": "api/Specialization",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[DoAn_API.Models.SpecializationVM, DoAn_API, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DoAn_API.Controllers.SpecializationController",
+    "Method": "CreateSpecialization",
+    "RelativePath": "api/Specialization",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "specializationVM",
+        "Type": "DoAn_API.Models.SpecializationVM",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "DoAn_API.Models.SpecializationVM",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DoAn_API.Controllers.SpecializationController",
+    "Method": "GetSpecialization",
+    "RelativePath": "api/Specialization/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "DoAn_API.Models.SpecializationVM",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DoAn_API.Controllers.SpecializationController",
+    "Method": "UpdateSpecialization",
+    "RelativePath": "api/Specialization/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "specializationVM",
+        "Type": "DoAn_API.Models.SpecializationVM",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DoAn_API.Controllers.SpecializationController",
+    "Method": "DeleteSpecialization",
+    "RelativePath": "api/Specialization/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "DoAn_API.Controllers.UserController",
     "Method": "SignIn",
     "RelativePath": "api/User/SignIn",

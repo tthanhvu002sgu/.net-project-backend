@@ -4752,19 +4752,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Vu\\.nuget\\packages\\": {}
+    "C:\\Users\\ADMIN\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Vu\\source\\repos\\backend\\backend\\DoAn_API.csproj",
+      "projectUniqueName": "C:\\Users\\ADMIN\\source\\repos\\.net-project-backend2\\DoAn_API.csproj",
       "projectName": "DoAn_API",
-      "projectPath": "C:\\Users\\Vu\\source\\repos\\backend\\backend\\DoAn_API.csproj",
-      "packagesPath": "C:\\Users\\Vu\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Vu\\source\\repos\\backend\\backend\\obj\\",
+      "projectPath": "C:\\Users\\ADMIN\\source\\repos\\.net-project-backend2\\DoAn_API.csproj",
+      "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\ADMIN\\source\\repos\\.net-project-backend2\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\Vu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -4868,7 +4873,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
