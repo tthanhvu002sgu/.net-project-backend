@@ -72,10 +72,11 @@ namespace DoAn_API.Data
 
                     // Đúng
                     e.HasMany(e => e.appointments).WithOne(e => e.patient).HasForeignKey(e => e.patientId);
+                });
 
-                }
 
-            );
+
+
             modelBuilder.Entity<Schedule>(
                 e =>
                 {

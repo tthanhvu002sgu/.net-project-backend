@@ -92,8 +92,8 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "signUpVM",
-        "Type": "DoAn_API.Models.SignUpVM",
+        "Name": "request",
+        "Type": "DoAn_API.Models.SignupRequest",
         "IsRequired": true
       }
     ],

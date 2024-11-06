@@ -19,9 +19,9 @@ namespace DoAn_API.Controllers
         }
 
         [HttpPost("SignUp")]
-        public async Task<IActionResult> SignUp(SignUpVM signUpVM)
+        public async Task<IActionResult> SignUp(SignupRequest request)
         {
-            var result = await accountRepo.SignUpAsync(signUpVM);
+            var result = await accountRepo.SignUpAsync(request);
             if (result.Succeeded)
             {
 

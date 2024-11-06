@@ -26,6 +26,36 @@ namespace DoAn_API.Services
         }
         public async Task<string> SignInAsync(SignInVM model)
         {
+            if (model.email == "admin@admin.hospital.com" && model.password == "admin@Abcd")
+            {
+                //var adminUser = await userManager.FindByEmailAsync(model.email);
+                //if (adminUser == null)
+                //{
+                //    return string.Empty; // Return empty if the admin user is not found
+                //}
+
+                // Create claims for the admin
+                var authClaimsAdmin = new List<Claim>
+        {
+            new Claim(ClaimTypes.Email, model.email),
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+            new Claim(ClaimTypes.Role, AppRole.Admin) // Assume "Admin" is the role name for admins
+        };
+
+                // Generate the JWT token
+                var authenKeyAdmin = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:SecretKey"]));
+                var adminToken = new JwtSecurityToken(
+                    issuer: configuration["JWT:ValidIssuer"],
+                    audience: configuration["JWT:ValidAudience"],
+                    expires: DateTime.Now.AddHours(3),
+                    claims: authClaimsAdmin,
+                    signingCredentials: new SigningCredentials(authenKeyAdmin, SecurityAlgorithms.HmacSha512Signature)
+                );
+
+                return new JwtSecurityTokenHandler().WriteToken(adminToken);
+            }
+
+            //for other user
             var user = await userManager.FindByEmailAsync(model.email);
             var passwordValid = await userManager.CheckPasswordAsync(user, model.password);
             if (user == null || !passwordValid)
@@ -63,17 +93,20 @@ namespace DoAn_API.Services
 
 
 
-        public async Task<IdentityResult> SignUpAsync(SignUpVM model)
+        public async Task<IdentityResult> SignUpAsync(SignupRequest request)
         {
+            var model = request.model;
+            var doctorVM = request.doctorVM;
             var user = new ApplicationUser
             {
-                UserName = model.email,
                 Email = model.email,
+                UserName = model.email,
                 FullName = model.fullName,
                 Image = model.image,
-                Gender = model.gender,
                 Dob = model.dob,
+                Gender = model.gender,
                 Address = model.address,
+
             };
             var result = await userManager.CreateAsync(user, model.password);
             if (result.Succeeded)
@@ -94,9 +127,16 @@ namespace DoAn_API.Services
                 {
                     var doctor = new Doctor
                     {
+                        specializationName = doctorVM.specializationName,
+                        specializationId = 1,
                         doctorId = _context.Doctors.Count() + 1,
-                        email = model.email
-                        // Các thuộc tính khác của bác sĩ
+                        doctorName = model.fullName,
+                        email = doctorVM.email,
+                        degree = doctorVM.degree,
+                        experience = (double)doctorVM.experience,
+                        bookingFee = (double)doctorVM.bookingFee,
+                        doctorAbout = doctorVM.doctorAbout,
+
                     };
                     _context.Doctors.Add(doctor);
                 }
@@ -113,6 +153,9 @@ namespace DoAn_API.Services
             }
             return result;
         }
+
+
+
         private string DetermineRoleFromEmail(string email)
         {
             // Ví dụ phân biệt bằng domain

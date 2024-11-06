@@ -2,8 +2,10 @@
 {
     public class Doctor
     {
+        public string specializationName { get; set; }
         public int specializationId { get; set; }
         public int doctorId { get; set; }
+        public string doctorName { get; set; }
         public string email { get; set; }
         public string? degree { get; set; }
         public double? experience { get; set; }

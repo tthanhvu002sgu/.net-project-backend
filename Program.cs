@@ -43,7 +43,7 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp",
-        policy => policy.WithOrigins("http://localhost:5173") // URL của ReactJS
+        policy => policy.WithOrigins("http://localhost:5173", "http://localhost:5174") // URL của ReactJS
                         .AllowAnyHeader()
                         .AllowAnyMethod());
 });

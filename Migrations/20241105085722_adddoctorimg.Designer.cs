@@ -4,6 +4,7 @@ using DoAn_API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DoAn_API.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241105085722_adddoctorimg")]
+    partial class adddoctorimg
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -168,7 +171,7 @@ namespace DoAn_API.Migrations
                     b.Property<string>("doctorAbout")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("doctorName")
+                    b.Property<string>("doctorImg")
                         .IsRequired()
                         .HasColumnType("longtext");
 
@@ -181,10 +184,6 @@ namespace DoAn_API.Migrations
 
                     b.Property<int>("specializationId")
                         .HasColumnType("int");
-
-                    b.Property<string>("specializationName")
-                        .IsRequired()
-                        .HasColumnType("longtext");
 
                     b.HasKey("doctorId");
 

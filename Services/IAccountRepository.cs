@@ -6,7 +6,7 @@ namespace DoAn_API.Services
     public interface IAccountRepository
     {
 
-        public Task<IdentityResult> SignUpAsync(SignUpVM model);
+        public Task<IdentityResult> SignUpAsync(SignupRequest request);
         public Task<string> SignInAsync(SignInVM model);
 
     }

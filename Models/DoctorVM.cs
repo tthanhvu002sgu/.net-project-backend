@@ -2,9 +2,9 @@
 {
     public class DoctorVM
     {
-        public int specializationId { get; set; }
+        public string specializationName { get; set; }
+        public string doctorName { get; set; }
         public string email { get; set; }
-        public string doctorId { get; set; }
         public string degree { get; set; }
         public double experience { get; set; }
         public double bookingFee { get; set; }
@@ -12,11 +12,6 @@
 
         //relationship
 
-        public ICollection<AppointmentVM> appointments { get; set; }
-        public ICollection<ScheduleVM> schedules { get; set; }
-        public ICollection<SpecializationVM> specializations { get; set; }
-        public DoctorVM()
-        {
-        }
+
     }
 }

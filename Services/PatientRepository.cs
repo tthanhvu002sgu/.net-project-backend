@@ -93,12 +93,6 @@ namespace DoAn_API.Services
         //    }
         //}
 
-        public async Task CreatePatient(Patient patient)
-        {
-            // EF Core sẽ tự động thêm vào bảng Users trước, sau đó thêm vào bảng Patient
-            await _context.Patients.AddAsync(patient);
-            await _context.SaveChangesAsync();
-        }
 
         public List<PatientVM> GetAll()
         {
