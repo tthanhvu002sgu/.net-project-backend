@@ -18,6 +18,7 @@ namespace DoAn_API.Models
         public DateTime dob { get; set; }
         public string gender { get; set; } = null!;
         public string address { get; set; } = null!;
+        public string phoneNumber { get; set; } = null!;
 
     }
 }

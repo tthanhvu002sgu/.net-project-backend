@@ -1,5 +1,15 @@
 [
   {
+    "ContainingType": "DoAn_API.Controllers.DoctorController",
+    "Method": "GetAllDoctors",
+    "RelativePath": "api/Doctor",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "DoAn_API.Controllers.PatientsController",
     "Method": "GetAllPatients",
     "RelativePath": "api/Patients",
@@ -11,41 +21,15 @@
   },
   {
     "ContainingType": "DoAn_API.Controllers.PatientsController",
-    "Method": "GetPatientById",
-    "RelativePath": "api/Patients/{patientId}",
+    "Method": "GetPatientByEmail",
+    "RelativePath": "api/Patients/{email}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "patientId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "DoAn_API.Controllers.PatientsController",
-    "Method": "UpdatePatient",
-    "RelativePath": "api/Patients/{patientId}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "patient",
-        "Type": "DoAn_API.Models.PatientVM",
-        "IsRequired": true
-      },
-      {
-        "Name": "patientId",
-        "Type": "",
+        "Name": "email",
+        "Type": "System.String",
         "IsRequired": true
       }
     ],
@@ -62,6 +46,27 @@
       {
         "Name": "patientId",
         "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DoAn_API.Controllers.PatientsController",
+    "Method": "UpdatePatient",
+    "RelativePath": "api/Patients/update",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "patient",
+        "Type": "DoAn_API.Data.ApplicationUser",
         "IsRequired": true
       }
     ],

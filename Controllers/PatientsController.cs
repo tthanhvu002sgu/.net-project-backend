@@ -1,5 +1,4 @@
 ﻿using DoAn_API.Data;
-using DoAn_API.Models;
 using DoAn_API.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -25,26 +24,29 @@ namespace DoAn_API.Controllers
             return Ok(_patientRepository.GetAll());
         }
 
-        // GET: api/patients/{patientId} [patient, admin]
-        [HttpGet("{patientId}")]
-        public IActionResult GetPatientById(int patientId)
+        [HttpGet("{email}")]
+        public async Task<IActionResult> GetPatientByEmail(string email)
         {
-            var patient = _patientRepository.GetPatientVM(patientId);
+            var patient = await _patientRepository.GetPatientByEmailAsync(email);
             if (patient == null)
-                return NotFound();
+            {
+                return NotFound(new { message = "Patient not found" });
+            }
 
             return Ok(patient);
         }
 
-        // PUT: api/patients/{patientId} [patient, admin]
-        [HttpPut("{patientId}")]
-        public IActionResult UpdatePatient(int id, PatientVM patient)
+        [HttpPut("update")]
+        public async Task<IActionResult> UpdatePatient([FromQuery] string email, [FromBody] ApplicationUser patient)
         {
-            if (id.CompareTo(patient.patientId) != 0)
-                return BadRequest();
+            var result = await _patientRepository.UpdatePatient(email, patient);
+            if (result)
+            {
+                return Ok(patient);
+            }
+            return NotFound(new { message = "Patient not found" });
 
-            _patientRepository.Update(patient);
-            return NoContent();
+
         }
 
         // DELETE: api/patients/{patientId} [admin]

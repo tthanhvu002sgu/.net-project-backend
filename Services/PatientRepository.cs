@@ -1,29 +1,20 @@
 ﻿using DoAn_API.Data;
 using DoAn_API.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace DoAn_API.Services
 {
     public class PatientRepository : IPatientRepository
     {
         private readonly MyDbContext _context;
-        public PatientRepository(MyDbContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+        public PatientRepository(MyDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
-        public PatientVM Add(PatientVM patient)
-        {
-            var newPatient = new Patient
-            {
 
-            };
-            _context.Add(newPatient);
-            _context.SaveChanges();
-            return new PatientVM
-            {
-
-            };
-        }
 
         public void Delete(int id)
         {
@@ -44,35 +35,26 @@ namespace DoAn_API.Services
         //    return patients.ToList();
         //}
 
-        //public PatientVM GetPatientVM(int id)
-        //{
-        //    var patient = _context.Patients.SingleOrDefault(patient => patient.patientId == id);
-        //    if (patient != null)
-        //    {
-        //        //if (!IsPatientUser(patient))
-        //        //{
-        //        //    return null;
-        //        //};
-
-        //        return new PatientVM
-        //        {
-        //            userId = patient.userId,
-        //            email = patient.email,
-        //            password = patient.password,
-        //            image = patient.image,
-        //            phoneNumber = patient.phoneNumber,
-        //            fullName = patient.fullName,
-        //            address = patient.address,
-        //            gender = patient.gender,
-        //            dob = patient.dob
-        //        };
-        //    }
-        //    else
-        //    {
-        //        return null;
-        //    }
-        //}
-
+        public async Task<ApplicationUser> GetPatientByEmailAsync(string email)
+        {
+            var patient = await _userManager.FindByEmailAsync(email);
+            return patient;
+        }
+        public async Task<bool> UpdatePatient(string email, ApplicationUser patient)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user != null)
+            {
+                user.FullName = patient.FullName;
+                user.Address = patient.Address;
+                user.PhoneNumber = patient.PhoneNumber;
+                user.Gender = patient.Gender;
+                user.Dob = patient.Dob;
+                var result = await _userManager.UpdateAsync(user);
+                return result.Succeeded;
+            }
+            return false;
+        }
         //public void Update(PatientVM patient)
         //{
         //    var type = _context.Patients.SingleOrDefault(patient => patient.userId == patient.userId);

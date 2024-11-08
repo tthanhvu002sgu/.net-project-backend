@@ -106,7 +106,6 @@ namespace DoAn_API.Services
                 Dob = model.dob,
                 Gender = model.gender,
                 Address = model.address,
-                PhoneNumber = model.phoneNumber
 
             };
             var result = await userManager.CreateAsync(user, model.password);
@@ -132,7 +131,7 @@ namespace DoAn_API.Services
                         specializationId = 1,
                         doctorId = _context.Doctors.Count() + 1,
                         doctorName = model.fullName,
-                        doctorImage = doctorVM.doctorImg,
+                        doctorImage = model.image,
                         email = doctorVM.email,
                         degree = doctorVM.degree,
                         experience = (double)doctorVM.experience,
@@ -155,18 +154,7 @@ namespace DoAn_API.Services
             }
             return result;
         }
-        private async Task<string> SaveImageToServer(IFormFile image)
-        {
-            // Lưu ảnh vật lý trên server và trả về đường dẫn
-            // Ví dụ:
-            var fileName = $"{Guid.NewGuid().ToString()}.jpg";
-            var filePath = Path.Combine("wwwroot", "images", fileName);
-            using (var fileStream = new FileStream(filePath, FileMode.Create))
-            {
-                await image.CopyToAsync(fileStream);
-            }
-            return $"/images/{fileName}";
-        }
+
 
 
         private string DetermineRoleFromEmail(string email)

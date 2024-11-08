@@ -19,11 +19,31 @@ namespace DoAn_API.Services
         {
         }
 
-        public List<DoctorVM> GetAllAsync()
+        public List<DoctorVM> GetAllDoctorsAsync()
         {
+            try
+            {
 
-            var doctors = _context.Doctors.Select(d => new DoctorVM { specializationName = d.specializationName, email = d.email, degree = d.degree, experience = (double)d.experience, bookingFee = (double)d.bookingFee, doctorAbout = d.doctorAbout });
-            return doctors.ToList();
+                var doctors = _context.Doctors
+                    .Select(d => new DoctorVM
+                    {
+                        specializationName = d.specializationName ?? string.Empty,
+                        doctorName = d.doctorName ?? string.Empty,
+                        doctorImg = d.doctorImage ?? string.Empty,
+                        email = d.email ?? string.Empty,
+                        degree = d.degree ?? string.Empty,
+                        experience = d.experience ?? 0.0,
+                        bookingFee = d.bookingFee ?? 0.0,
+                        doctorAbout = d.doctorAbout ?? string.Empty
+                    })
+                    .ToList();
+
+                return doctors;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error retrieving doctors from database", ex);
+            }
         }
 
         public DoctorVM GetDoctorVM(int doctorId)
@@ -37,7 +57,7 @@ namespace DoAn_API.Services
 
 
 
-        PatientVM IDoctorRepository.GetDoctorVM(int doctorId)
+        DoctorVM IDoctorRepository.GetDoctorVM(int doctorId)
         {
             throw new NotImplementedException();
         }

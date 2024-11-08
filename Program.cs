@@ -14,8 +14,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 builder.Services.AddDbContext<MyDbContext>(options => options.UseInMemoryDatabase("bookingcare"));
-//builder.Services.AddTransient<ITypeRepository, TypeRepository>();
 builder.Services.AddTransient<IPatientRepository, PatientRepository>();
+builder.Services.AddTransient<IDoctorRepository, DoctorRepository>();
+builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
+
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<MyDbContext>().AddDefaultTokenProviders();
@@ -43,7 +45,7 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp",
-        policy => policy.WithOrigins("http://localhost:5173", "http://localhost:5174") // URL của ReactJS
+        policy => policy.WithOrigins("http://localhost:5173", "http://localhost:5174", "http://localhost:5175") // URL của ReactJS
                         .AllowAnyHeader()
                         .AllowAnyMethod());
 });

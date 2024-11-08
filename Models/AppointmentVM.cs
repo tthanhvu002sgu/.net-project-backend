@@ -11,6 +11,8 @@
             Confirmed = 1,
             Cancelled = 2
         }
+        public DateOnly date { get; set; }
+        public TimeOnly time { get; set; }
         public string appointmentId { get; set; }
         public string appointmentTitle { get; set; }
         public string appointmentDescription { get; set; }

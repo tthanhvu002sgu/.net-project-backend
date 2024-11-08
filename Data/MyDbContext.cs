@@ -23,7 +23,6 @@ namespace DoAn_API.Data
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<Patient> Patients { get; set; }
-        public DbSet<Schedule> Schedules { get; set; }
         public DbSet<Specialization> Specializations { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -56,7 +55,7 @@ namespace DoAn_API.Data
                     e.HasKey(e => e.doctorId);
 
                     e.HasMany(e => e.appointments).WithOne(e => e.doctor).HasForeignKey(e => e.doctorId);
-                    e.HasMany(e => e.schedules).WithOne(e => e.doctor).HasForeignKey(e => e.doctorId);
+
 
                     e.HasOne(e => e.specialization).WithMany(e => e.doctors).HasForeignKey(e => e.specializationId).OnDelete(DeleteBehavior.Cascade);
 
@@ -77,13 +76,7 @@ namespace DoAn_API.Data
 
 
 
-            modelBuilder.Entity<Schedule>(
-                e =>
-                {
-                    e.ToTable("Schedule");
-                    e.HasKey(e => e.scheduleId);
-                }
-            );
+
 
         }
     }
