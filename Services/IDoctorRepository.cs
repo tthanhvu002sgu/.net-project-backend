@@ -4,9 +4,10 @@ namespace DoAn_API.Services
 {
     public interface IDoctorRepository
     {
-        List<DoctorVM> GetAllDoctorsAsync();
+        Task<List<DoctorVM>> GetAllDoctorsAsync();
         DoctorVM GetDoctorVM(int doctorId);
         void Update(int doctorId, DoctorVM doctor);
+        Task<bool> UpdateAvailabilityAsync(string doctorEmail, bool isAvailable);
         void Delete(int id);
     }
 }

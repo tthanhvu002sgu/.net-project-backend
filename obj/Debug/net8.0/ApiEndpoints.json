@@ -10,6 +10,27 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "DoAn_API.Controllers.DoctorController",
+    "Method": "UpdateAvailability",
+    "RelativePath": "api/Doctor/update-availability",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "doctorEmail",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "isAvailable",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "DoAn_API.Controllers.PatientsController",
     "Method": "GetAllPatients",
     "RelativePath": "api/Patients",
@@ -67,6 +88,64 @@
       {
         "Name": "patient",
         "Type": "DoAn_API.Data.ApplicationUser",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DoAn_API.Controllers.SpecializationController",
+    "Method": "GetAllSpecializations",
+    "RelativePath": "api/Specialization",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DoAn_API.Controllers.SpecializationController",
+    "Method": "AddSpecializations",
+    "RelativePath": "api/Specialization",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "specialization",
+        "Type": "DoAn_API.Models.SpecializationVM",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DoAn_API.Controllers.SpecializationController",
+    "Method": "GetSpecializations",
+    "RelativePath": "api/Specialization/{specialization}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "specialization",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DoAn_API.Controllers.SpecializationController",
+    "Method": "DeleteSpecializations",
+    "RelativePath": "api/Specialization/{specialization}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "specialization",
+        "Type": "System.String",
         "IsRequired": true
       }
     ],

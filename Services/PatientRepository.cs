@@ -55,25 +55,6 @@ namespace DoAn_API.Services
             }
             return false;
         }
-        //public void Update(PatientVM patient)
-        //{
-        //    var type = _context.Patients.SingleOrDefault(patient => patient.userId == patient.userId);
-
-        //    if (type != null)
-        //    {
-
-
-        //        type.email = patient.email;
-        //        type.password = patient.password;
-        //        type.image = patient.image;
-        //        type.phoneNumber = patient.phoneNumber;
-        //        type.fullName = patient.fullName;
-        //        type.address = patient.address;
-        //        type.gender = patient.gender;
-        //        type.dob = patient.dob;
-        //        _context.SaveChanges();
-        //    }
-        //}
 
 
         public List<PatientVM> GetAll()

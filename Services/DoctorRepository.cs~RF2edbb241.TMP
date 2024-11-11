@@ -1,7 +1,6 @@
 ﻿using DoAn_API.Data;
 using DoAn_API.Models;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 
 namespace DoAn_API.Services
 {
@@ -20,12 +19,12 @@ namespace DoAn_API.Services
         {
         }
 
-        public async Task<List<DoctorVM>> GetAllDoctorsAsync()
+        public List<DoctorVM> GetAllDoctorsAsync()
         {
             try
             {
 
-                var doctors = await _context.Doctors
+                var doctors = _context.Doctors
                     .Select(d => new DoctorVM
                     {
                         specializationName = d.specializationName ?? string.Empty,
@@ -38,7 +37,7 @@ namespace DoAn_API.Services
                         doctorAbout = d.doctorAbout ?? string.Empty,
                         isAvailable = d.isAvailable
                     })
-                    .ToListAsync();
+                    .ToList();
 
                 return doctors;
             }
@@ -49,9 +48,10 @@ namespace DoAn_API.Services
         }
 
 
-        public async Task<bool> UpdateAvailabilityAsync(string doctorEmail, bool isAvailable)
+        public async Task<bool> UpdateAvailabilityAsync(
+            string doctorEmail, bool isAvailable)
         {
-            var doctor = _context.Doctors.SingleOrDefault(d => d.email == doctorEmail);
+            var doctor = await _context.Doctors.SingleOrDefault(d => d.email == doctorEmail);
             if (doctor == null)
             {
                 return false;

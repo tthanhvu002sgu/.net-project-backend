@@ -106,7 +106,7 @@ namespace DoAn_API.Services
                 Dob = model.dob,
                 Gender = model.gender,
                 Address = model.address,
-                PhoneNumber = model.phoneNumber
+                PhoneNumber = model.phoneNumber ?? string.Empty
 
             };
             var result = await userManager.CreateAsync(user, model.password);
@@ -138,7 +138,7 @@ namespace DoAn_API.Services
                         experience = (double)doctorVM.experience,
                         bookingFee = (double)doctorVM.bookingFee,
                         doctorAbout = doctorVM.doctorAbout,
-
+                        isAvailable = doctorVM.isAvailable,
                     };
                     _context.Doctors.Add(doctor);
                 }
