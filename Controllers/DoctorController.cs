@@ -29,6 +29,26 @@ namespace DoAn_API.Controllers
                 return StatusCode(500, $"Error retrieving doctors: {ex.Message}");
             }
         }
+
+        [HttpGet("get-by-specialization")]
+        public async Task<IActionResult> GetDoctorsBySpecializationName(string specializationName)
+        {
+            try
+            {
+                var doctors = await _doctorRepository.GetDoctorsBySpecializationAsync(specializationName);
+                if (doctors == null || !doctors.Any())
+                {
+                    return NotFound("No doctors found for this specialization.");
+                }
+
+                return Ok(doctors);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
         [HttpPut("update-availability")]
         public async Task<IActionResult> UpdateAvailability([FromQuery] string doctorEmail, [FromQuery] bool isAvailable)
         {
@@ -40,6 +60,7 @@ namespace DoAn_API.Controllers
             return NotFound(new { message = "Doctor not found." });
         }
     }
+
 
 
 }

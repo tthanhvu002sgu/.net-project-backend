@@ -62,6 +62,26 @@ namespace DoAn_API.Services
             _context.SaveChangesAsync();
             return true;
         }
+        public async Task<List<DoctorVM>> GetDoctorsBySpecializationAsync(string specialization)
+        {
+            var doctors = await _context.Doctors
+                .Where(d => d.specializationName == specialization)
+                .Select(d => new DoctorVM
+                {
+                    specializationName = d.specializationName ?? string.Empty,
+                    doctorName = d.doctorName ?? string.Empty,
+                    doctorImg = d.doctorImage ?? string.Empty,
+                    email = d.email ?? string.Empty,
+                    degree = d.degree ?? string.Empty,
+                    experience = d.experience ?? 0.0,
+                    bookingFee = d.bookingFee ?? 0.0,
+                    doctorAbout = d.doctorAbout ?? string.Empty,
+                    isAvailable = d.isAvailable
+                })
+                .ToListAsync();
+            return doctors;
+        }
+
 
         public DoctorVM GetDoctorVM(int doctorId)
         {
@@ -78,5 +98,7 @@ namespace DoAn_API.Services
         {
             throw new NotImplementedException();
         }
+
+
     }
 }

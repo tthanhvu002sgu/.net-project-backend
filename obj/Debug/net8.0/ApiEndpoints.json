@@ -11,6 +11,22 @@
   },
   {
     "ContainingType": "DoAn_API.Controllers.DoctorController",
+    "Method": "GetDoctorsBySpecializationName",
+    "RelativePath": "api/Doctor/get-by-specialization",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "specializationName",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DoAn_API.Controllers.DoctorController",
     "Method": "UpdateAvailability",
     "RelativePath": "api/Doctor/update-availability",
     "HttpMethod": "PUT",
