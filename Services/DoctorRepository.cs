@@ -19,7 +19,21 @@ namespace DoAn_API.Services
         public void Delete(int id)
         {
         }
+        public async Task<int> GetDoctorIdByEmail(string email)
+        {
+            var doctorId = await _context.Doctors
+                .Where(d => d.email == email)
+                .Select(d => d.doctorId)
+                .FirstOrDefaultAsync();
 
+            return doctorId;
+        }
+        public async Task<ApplicationUser> GetDoctorInfoByEmail(string email)
+        {
+            var doctor = await _userManager.FindByEmailAsync(email);
+            return doctor;
+
+        }
         public async Task<List<DoctorVM>> GetAllDoctorsAsync()
         {
             try
@@ -93,11 +107,27 @@ namespace DoAn_API.Services
         }
 
 
-
-        DoctorVM IDoctorRepository.GetDoctorVM(int doctorId)
+        public async Task<DoctorVM> GetDoctorByEmail(string doctorEmail)
         {
-            throw new NotImplementedException();
+            var doctor = await _context.Doctors
+                .Where(d => d.email == doctorEmail)
+                .Select(d => new DoctorVM
+                {
+                    specializationName = d.specializationName ?? string.Empty,
+                    doctorName = d.doctorName ?? string.Empty,
+                    doctorImg = d.doctorImage ?? string.Empty,
+                    email = d.email ?? string.Empty,
+                    degree = d.degree ?? string.Empty,
+                    experience = d.experience ?? 0.0,
+                    bookingFee = d.bookingFee ?? 0.0,
+                    doctorAbout = d.doctorAbout ?? string.Empty,
+                    isAvailable = d.isAvailable
+                })
+                .FirstOrDefaultAsync();
+            return doctor;
         }
+
+
 
 
     }

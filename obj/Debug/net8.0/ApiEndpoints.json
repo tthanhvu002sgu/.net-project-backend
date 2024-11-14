@@ -1,5 +1,53 @@
 [
   {
+    "ContainingType": "DoAn_API.Controllers.AppointmentController",
+    "Method": "AddAppointment",
+    "RelativePath": "api/Appointment/add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "DoAn_API.Models.AppointmentVM",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DoAn_API.Controllers.AppointmentController",
+    "Method": "GetAppointmentsByDoctorEmail",
+    "RelativePath": "api/Appointment/get-by-doctor-email/{email}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DoAn_API.Controllers.AppointmentController",
+    "Method": "GetAppointmentsByPatientEmail",
+    "RelativePath": "api/Appointment/get-by-patient-email/{email}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "DoAn_API.Controllers.DoctorController",
     "Method": "GetAllDoctors",
     "RelativePath": "api/Doctor",
@@ -7,6 +55,22 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DoAn_API.Controllers.DoctorController",
+    "Method": "GetDoctorByEmail",
+    "RelativePath": "api/Doctor/{email}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   },
   {
@@ -19,6 +83,22 @@
     "Parameters": [
       {
         "Name": "specializationName",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DoAn_API.Controllers.DoctorController",
+    "Method": "GetDoctorInfoByEmail",
+    "RelativePath": "api/Doctor/get-doctor-info-by-email",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
         "Type": "System.String",
         "IsRequired": false
       }

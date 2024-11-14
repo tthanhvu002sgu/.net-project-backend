@@ -4,6 +4,7 @@ using DoAn_API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DoAn_API.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241113152641_updateappointment")]
+    partial class updateappointment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -113,16 +116,11 @@ namespace DoAn_API.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("appointmentId"));
 
-                    b.Property<string>("address")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
                     b.Property<int>("appointmentStatus")
                         .HasColumnType("int");
 
-                    b.Property<string>("date")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.Property<DateOnly>("date")
+                        .HasColumnType("date");
 
                     b.Property<string>("doctorEmail")
                         .IsRequired()
@@ -130,10 +128,6 @@ namespace DoAn_API.Migrations
 
                     b.Property<int>("doctorId")
                         .HasColumnType("int");
-
-                    b.Property<string>("doctorName")
-                        .IsRequired()
-                        .HasColumnType("longtext");
 
                     b.Property<string>("patientEmail")
                         .IsRequired()
@@ -145,13 +139,8 @@ namespace DoAn_API.Migrations
                     b.Property<int>("paymentId")
                         .HasColumnType("int");
 
-                    b.Property<string>("specialization")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("time")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.Property<TimeOnly>("time")
+                        .HasColumnType("time(6)");
 
                     b.HasKey("appointmentId");
 

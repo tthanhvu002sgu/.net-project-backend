@@ -54,7 +54,7 @@ namespace DoAn_API.Data
                     e.ToTable("Doctor");
                     e.HasKey(e => e.doctorId);
 
-                    e.HasMany(e => e.appointments).WithOne(e => e.doctor).HasForeignKey(e => e.doctorId);
+                    e.HasMany(e => e.appointments).WithOne(e => e.doctor).HasForeignKey(e => e.doctorId).OnDelete(DeleteBehavior.Cascade);
 
 
                     e.HasOne(e => e.specialization).WithMany(e => e.doctors).HasForeignKey(e => e.specializationId).OnDelete(DeleteBehavior.Cascade);
@@ -70,7 +70,7 @@ namespace DoAn_API.Data
                     e.HasKey(e => e.patientId);
 
                     // Đúng
-                    e.HasMany(e => e.appointments).WithOne(e => e.patient).HasForeignKey(e => e.patientId);
+                    e.HasMany(e => e.appointments).WithOne(e => e.patient).HasForeignKey(e => e.patientId).OnDelete(DeleteBehavior.Cascade);
                 });
 
 

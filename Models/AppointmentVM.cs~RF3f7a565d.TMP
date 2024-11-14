@@ -4,9 +4,6 @@
     {
         public string patientEmail { get; set; }
         public string doctorEmail { get; set; }
-        public string specialization { get; set; }
-        public string address { get; set; }
-        public string doctorName { get; set; }
         public int paymentId { get; set; }
         public enum Status
         {

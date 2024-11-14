@@ -2,11 +2,17 @@
 {
     public class Appointment
     {
-        public int patientId { get; set; }
         public int doctorId { get; set; }
+        public int patientId { get; set; }
+        public string patientEmail { get; set; }
+        public string doctorEmail { get; set; }
+        public string specialization { get; set; }
+        public string address { get; set; }
+        public string doctorName { get; set; }
         public int paymentId { get; set; }
-        public DateOnly date { get; set; }
-        public TimeOnly time { get; set; }
+
+        public string date { get; set; }
+        public string time { get; set; }
         public enum Status
         {
             Pending = 0,
@@ -14,9 +20,6 @@
             Cancelled = 2
         }
         public int appointmentId { get; set; }
-        public string doctorEmail { get; set; }
-        public string appointmentTitle { get; set; }
-        public string appointmentDescription { get; set; }
         public Status appointmentStatus { get; set; }
         public Doctor doctor { get; set; }
         public Patient patient { get; set; }

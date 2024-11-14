@@ -65,24 +65,6 @@ namespace DoAn_API.Controllers
             }
         }
 
-        [HttpGet("get-doctor-info-by-email")]
-        public async Task<IActionResult> GetDoctorInfoByEmail(string email)
-        {
-            try
-            {
-                var doctor = await _doctorRepository.GetDoctorInfoByEmail(email);
-                if (doctor == null)
-                {
-                    return NotFound();
-                }
-                return Ok(doctor);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
-        }
-
         [HttpPut("update-availability")]
         public async Task<IActionResult> UpdateAvailability([FromQuery] string doctorEmail, [FromQuery] bool isAvailable)
         {

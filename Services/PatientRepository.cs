@@ -1,6 +1,7 @@
 ﻿using DoAn_API.Data;
 using DoAn_API.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace DoAn_API.Services
 {
@@ -14,7 +15,11 @@ namespace DoAn_API.Services
             _userManager = userManager;
         }
 
-
+        public async Task<int> GetPatientIdByEmail(string email)
+        {
+            var patientId = await _context.Patients.Where(p => p.email == email).Select(p => p.patientId).FirstOrDefaultAsync();
+            return patientId;
+        }
 
         public void Delete(int id)
         {
