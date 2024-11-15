@@ -71,10 +71,10 @@ namespace DoAn_API.Repositories
                 specialization = doctor.specializationName,
                 address = doctorInfo.Address,
                 doctorName = doctor.doctorName,
-                paymentId = 1,
+                paymentId = 0, //null
                 date = appointmentVM.date,
                 time = appointmentVM.time,
-                appointmentId = _context.Appointments.Count() + 1,
+                appointmentId = (int)_context.Appointments.Count() + 1,
                 appointmentStatus = (Appointment.Status)appointmentVM.appointmentStatus // Assuming matching enum
             };
 

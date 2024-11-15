@@ -16,6 +16,8 @@
         }
         public string date { get; set; }
         public string time { get; set; }
+        public int? appointmentId { get; set; }
+
         public Status appointmentStatus { get; set; }
     }
 }

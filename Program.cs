@@ -26,7 +26,8 @@ builder.Services.AddScoped<ISpecializationRepository, SpecializationRepository>(
 builder.Services.AddTransient<ISpecializationRepository, SpecializationRepository>();
 builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 builder.Services.AddTransient<IAppointmentRepository, AppointmentRepository>();
-
+builder.Services.AddTransient<IPaymentRepository, PaymentRepository>();
+builder.Services.AddSingleton<IVNPayRepository, VNPayRepository>();
 
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<MyDbContext>().AddDefaultTokenProviders();
