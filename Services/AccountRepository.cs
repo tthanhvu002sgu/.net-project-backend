@@ -93,6 +93,68 @@ namespace DoAn_API.Services
 
 
 
+        //public async Task<IdentityResult> SignUpAsync(SignupRequest request)
+        //{
+        //    var model = request.model;
+        //    var doctorVM = request.doctorVM;
+        //    var user = new ApplicationUser
+        //    {
+        //        Email = model.email,
+        //        UserName = model.email,
+        //        FullName = model.fullName,
+        //        Image = model.image,
+        //        Dob = model.dob,
+        //        Gender = model.gender,
+        //        Address = model.address,
+        //        PhoneNumber = model.phoneNumber ?? string.Empty
+
+        //    };
+        //    var result = await userManager.CreateAsync(user, model.password);
+        //    if (result.Succeeded)
+        //    {
+        //        string role = DetermineRoleFromEmail(model.email);
+
+        //        if (role == AppRole.Patient)
+        //        {
+        //            var patient = new Patient
+        //            {
+        //                patientId = _context.Patients.Count() + 1,
+        //                email = model.email
+        //                // Các thuộc tính khác của bệnh nhân
+        //            };
+        //            _context.Patients.Add(patient);
+        //        }
+        //        else if (role == AppRole.Doctor)
+        //        {
+        //            var doctor = new Doctor
+        //            {
+        //                specializationName = doctorVM.specializationName,
+        //                specializationId = 1,
+        //                doctorId = _context.Doctors.Count() + 1,
+        //                doctorName = model.fullName,
+        //                doctorImage = doctorVM.doctorImg,
+        //                email = doctorVM.email,
+        //                degree = doctorVM.degree,
+        //                experience = (double)doctorVM.experience,
+        //                bookingFee = (double)doctorVM.bookingFee,
+        //                doctorAbout = doctorVM.doctorAbout,
+        //                isAvailable = doctorVM.isAvailable,
+        //            };
+        //            _context.Doctors.Add(doctor);
+        //        }
+
+        //        await _context.SaveChangesAsync();
+
+        //        // Tạo role nếu chưa tồn tại
+        //        if (!await roleManager.RoleExistsAsync(role))
+        //        {
+        //            await roleManager.CreateAsync(new IdentityRole(role));
+        //        }
+
+        //        await userManager.AddToRoleAsync(user, AppRole.Patient);
+        //    }
+        //    return result;
+        //}
         public async Task<IdentityResult> SignUpAsync(SignupRequest request)
         {
             var model = request.model;
@@ -107,7 +169,6 @@ namespace DoAn_API.Services
                 Gender = model.gender,
                 Address = model.address,
                 PhoneNumber = model.phoneNumber ?? string.Empty
-
             };
             var result = await userManager.CreateAsync(user, model.password);
             if (result.Succeeded)
@@ -151,10 +212,12 @@ namespace DoAn_API.Services
                     await roleManager.CreateAsync(new IdentityRole(role));
                 }
 
-                await userManager.AddToRoleAsync(user, AppRole.Patient);
+                // Thêm role dựa trên email
+                await userManager.AddToRoleAsync(user, role);
             }
             return result;
         }
+
         private async Task<string> SaveImageToServer(IFormFile image)
         {
             // Lưu ảnh vật lý trên server và trả về đường dẫn
