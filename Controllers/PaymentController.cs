@@ -55,26 +55,27 @@ namespace DoAn_API.Controllers
             return Ok(_paymentRepository.GetAll());
         }
 
-        //[HttpPut("update/{paymentId}")]
-        //public IActionResult UpdatePayment([FromQuery] PaymentVM payment, int paymentId)
-        //{
-        //    if (paymentId != payment.paymentId)
-        //    {
-        //        return BadRequest();
-        //    }
-        //    _paymentRepository.Update(payment);
-        //    return NoContent();
-        //}
+        [HttpPut("update/{paymentId}")]
+        public IActionResult UpdatePayment([FromQuery] PaymentVM payment, int paymentId)
+        {
+            if (paymentId != payment.paymentId)
+            {
+                return BadRequest();
+            }
+            _paymentRepository.Update(payment);
+            return NoContent();
+        }
 
 
-        //[HttpPost]
-        //[Route("VNPay")]
+        [HttpPost]
+        [Route("VNPay")]
         //public IActionResult PayWithOnline(VNPayRequest model)
         //{
         //    model.OrderId = new Random().Next(1000, 10000);
         //    model.CreatedDate = DateTime.Now;
         //    PaymentVM entity = new PaymentVM
         //    {
+
         //        paymentId = model.OrderId,
         //        userId = model.userId,
         //        Price = (decimal)model.Amount,
@@ -86,21 +87,21 @@ namespace DoAn_API.Controllers
         //    return Ok(returnUrl);
         //}
 
-        //[HttpGet]
-        //[Route("PaymentCallBack")]
-        //public IActionResult PaymentCallBack()
-        //{
-        //    var response = _vnPayRepository.PaymentExcute(Request.Query);
-        //    if (response == null || response.VnPayResponseCode != "00")
-        //    {
-        //        return BadRequest("Payment fail" + "Code: " + response.VnPayResponseCode);
-        //    }
-        //    string id = response.PaymentId;
-        //    int number;
-        //    bool success = int.TryParse(id, out number);
-        //    _paymentRepository.UpdateStatus("Đã thanh toán", number);
-        //    return Ok();
-        //}
+        [HttpGet]
+        [Route("PaymentCallBack")]
+        public IActionResult PaymentCallBack()
+        {
+            var response = _vnPayRepository.PaymentExcute(Request.Query);
+            if (response == null || response.VnPayResponseCode != "00")
+            {
+                return BadRequest("Payment fail" + "Code: " + response.VnPayResponseCode);
+            }
+            string id = response.PaymentId;
+            int number;
+            bool success = int.TryParse(id, out number);
+            _paymentRepository.UpdateStatus("Đã thanh toán", number);
+            return Ok();
+        }
 
 
     }
