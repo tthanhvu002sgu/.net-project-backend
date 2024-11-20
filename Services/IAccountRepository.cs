@@ -8,6 +8,7 @@ namespace DoAn_API.Services
 
         public Task<IdentityResult> SignUpAsync(SignupRequest request);
         public Task<string> SignInAsync(SignInVM model);
+        public Task<string> UploadImage(IFormFile file);
 
     }
 }

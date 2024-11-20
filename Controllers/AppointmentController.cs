@@ -112,6 +112,8 @@ namespace DoAn_API.Controllers
 
             return Ok(new { message = "Time slot is available." });
         }
+
+
         [HttpPost("reject")]
         public async Task<IActionResult> RejectAppointment(
       [FromQuery] string doctorEmail,

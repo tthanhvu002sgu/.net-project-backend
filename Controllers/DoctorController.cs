@@ -1,4 +1,6 @@
 ﻿using DoAn_API.Services;
+using Firebase.Auth;
+using Firebase.Storage;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DoAn_API.Controllers
@@ -9,10 +11,18 @@ namespace DoAn_API.Controllers
 
     {
         private readonly IDoctorRepository _doctorRepository;
-
-        public DoctorController(IDoctorRepository doctorRepository)
+        private readonly string _firebaseApiKey;
+        private readonly string _firebaseBucket;
+        private readonly string _firebaseAuthEmail;
+        private readonly string _firebaseAuthPassword;
+        public DoctorController(IDoctorRepository doctorRepository, IConfiguration configuration)
         {
             _doctorRepository = doctorRepository ?? throw new ArgumentNullException(nameof(doctorRepository));
+            // Lấy thông tin Firebase từ appsettings.json
+            _firebaseApiKey = configuration["Firebase:ApiKey"];
+            _firebaseBucket = configuration["Firebase:Bucket"];
+            _firebaseAuthEmail = configuration["Firebase:AuthEmail"];
+            _firebaseAuthPassword = configuration["Firebase:AuthPassword"];
         }
         [HttpGet]
 
@@ -64,7 +74,52 @@ namespace DoAn_API.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+        [HttpPost("upload")]
+        public async Task<IActionResult> UploadImage(IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+            {
+                return null;
+            }
 
+            try
+            {
+                // Xác thực Firebase
+                var auth = new FirebaseAuthProvider(new FirebaseConfig(_firebaseApiKey));
+                var a = await auth.SignInWithEmailAndPasswordAsync(_firebaseAuthEmail, _firebaseAuthPassword);
+
+                // Lấy stream từ file được upload
+                using var stream = file.OpenReadStream();
+
+                // Tạo token để hủy upload nếu cần
+                var cancellation = new CancellationTokenSource();
+
+                // Tạo tên file mới với UUID để tránh trùng
+                var uniqueFileName = $"{Guid.NewGuid()}_{file.FileName}";
+
+                // Upload file lên Firebase Storage
+                var task = new FirebaseStorage(
+                    _firebaseBucket,
+                    new FirebaseStorageOptions
+                    {
+                        AuthTokenAsyncFactory = () => Task.FromResult(a.FirebaseToken),
+                        ThrowOnCancel = true
+                    })
+                    .Child("doctorImage") // Folder trên Firebase
+                    .Child(uniqueFileName) // Tên file
+                    .PutAsync(stream, cancellation.Token);
+
+                // Lấy URL sau khi upload
+                var downloadUrl = await task;
+
+                // Trả về link của file đã upload
+                return Ok(new { Url = downloadUrl });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = "Upload failed", Error = ex.Message });
+            }
+        }
         [HttpGet("get-doctor-info-by-email")]
         public async Task<IActionResult> GetDoctorInfoByEmail(string email)
         {

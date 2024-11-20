@@ -9,13 +9,14 @@ namespace DoAn_API.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
+
         private readonly MyDbContext _context;
-        private readonly AppSettings _appSettings;
         private readonly IAccountRepository accountRepo;
 
-        public UserController(IAccountRepository repo)
+        public UserController(IAccountRepository repo, IConfiguration configuration)
         {
             accountRepo = repo;
+
         }
 
         [HttpPost("SignUp")]
@@ -31,6 +32,18 @@ namespace DoAn_API.Controllers
             {
                 return BadRequest(new { Errors = result.Errors.Select(e => e.Description) });
             }
+        }
+
+
+        [HttpPost("upload-image")]
+        public async Task<IActionResult> UploadImage(IFormFile file)
+        {
+            var result = await accountRepo.UploadImage(file);
+            if (string.IsNullOrEmpty(result))
+            {
+                return BadRequest();
+            }
+            return Ok(result);
         }
 
         [HttpPost("SignIn")]

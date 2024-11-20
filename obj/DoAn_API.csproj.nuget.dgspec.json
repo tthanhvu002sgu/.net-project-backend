@@ -46,6 +46,18 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Firebase.Auth": {
+              "target": "Package",
+              "version": "[1.0.0, )"
+            },
+            "FirebaseAdmin": {
+              "target": "Package",
+              "version": "[3.1.0, )"
+            },
+            "FirebaseStorage.net": {
+              "target": "Package",
+              "version": "[1.0.3, )"
+            },
             "MailKit": {
               "target": "Package",
               "version": "[4.8.0, )"
