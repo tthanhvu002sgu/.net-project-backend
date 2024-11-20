@@ -24,6 +24,21 @@ namespace DoAn_API.Repositories
             _emailRepository = emailRepository;
             _context = context;
         }
+        public async Task<IEnumerable<Appointment>> GetAllAppointmentsAsync(int skip, int pageSize)
+        {
+            return await _context.Appointments
+                .OrderBy(a => a.date) // Sắp xếp theo ngày (hoặc thuộc tính khác nếu cần)
+                .ThenBy(a => a.time)  // Sắp xếp tiếp theo giờ
+                .Skip(skip)           // Bỏ qua số lượng bản ghi theo giá trị `skip`
+                .Take(pageSize)       // Lấy số lượng bản ghi theo giá trị `pageSize`
+                .ToListAsync();
+        }
+
+        public async Task<int> GetTotalAppointmentsAsync()
+        {
+            return await _context.Appointments.CountAsync(); // Đếm tổng số lịch hẹn
+        }
+
         public async Task<List<AppointmentVM>> GetAppointmentsByPatientEmail(string patientEmail)
         {
             var appointments = await _context.Appointments

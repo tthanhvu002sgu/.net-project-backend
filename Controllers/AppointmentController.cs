@@ -15,6 +15,36 @@ namespace DoAn_API.Controllers
         {
             _appointmentRepository = appointmentRepository;
         }
+        [HttpGet("getallappointments")]
+        public async Task<IActionResult> GetAllAppointments(int skip = 0, int pageSize = 10)
+        {
+            try
+            {
+                // Lấy danh sách lịch hẹn theo phân trang
+                var appointments = await _appointmentRepository.GetAllAppointmentsAsync(skip, pageSize);
+
+                // Đếm tổng số bản ghi (để trả về dữ liệu phân trang)
+                var totalRecords = await _appointmentRepository.GetTotalAppointmentsAsync();
+
+                // Tạo phản hồi bao gồm danh sách và metadata về phân trang
+                return Ok(new
+                {
+                    Data = appointments,
+                    Metadata = new
+                    {
+                        TotalRecords = totalRecords,
+                        Skip = skip,
+                        PageSize = pageSize,
+                        TotalPages = (int)Math.Ceiling((double)totalRecords / pageSize)
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = "An error occurred while fetching appointments.", Error = ex.Message });
+            }
+        }
+
         [HttpGet("get-by-doctor-email/{email}")]
         public async Task<IActionResult> GetAppointmentsByDoctorEmail(string email)
         {

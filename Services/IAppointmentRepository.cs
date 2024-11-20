@@ -9,6 +9,8 @@ namespace DoAn_API.Interfaces
         Task<List<AppointmentVM>> GetAppointmentsByPatientEmail(string patientEmail);
         Task<List<AppointmentVM>> GetAppointmentsByDoctorEmail(string doctorEmail);
         Task<List<Appointment>> GetBookedSlotsByDoctorEmailAsync(string doctorEmail);
+        Task<IEnumerable<Appointment>> GetAllAppointmentsAsync(int skip, int pageSize);
+        Task<int> GetTotalAppointmentsAsync();
         Task<bool> IsPatientDoubleBookingAsync(string patientEmail, string date, string time);
         Task<bool> RejectAppointmentAsync(string doctorEmail, string patientEmail, string date, string time, string rejectionReason);
     }
