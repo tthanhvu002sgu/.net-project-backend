@@ -9,6 +9,8 @@
         public string specialization { get; set; }
         public string address { get; set; }
         public string doctorName { get; set; }
+        public string patientName { get; set; }
+        public decimal appointmentFee { get; set; }
         public int paymentId { get; set; }
 
         public string date { get; set; }

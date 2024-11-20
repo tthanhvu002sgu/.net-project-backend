@@ -117,6 +117,9 @@ namespace DoAn_API.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<decimal>("appointmentFee")
+                        .HasColumnType("decimal(65,30)");
+
                     b.Property<int>("appointmentStatus")
                         .HasColumnType("int");
 
@@ -141,6 +144,10 @@ namespace DoAn_API.Migrations
 
                     b.Property<int>("patientId")
                         .HasColumnType("int");
+
+                    b.Property<string>("patientName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<int>("paymentId")
                         .HasColumnType("int");
@@ -239,6 +246,10 @@ namespace DoAn_API.Migrations
                     b.Property<int>("appointmentId")
                         .HasColumnType("int");
 
+                    b.Property<string>("patientEmail")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<int>("patientId")
                         .HasColumnType("int");
 
@@ -250,12 +261,15 @@ namespace DoAn_API.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<decimal>("price")
+                        .HasColumnType("decimal(65,30)");
+
                     b.HasKey("paymentId");
 
                     b.HasIndex("appointmentId")
                         .IsUnique();
 
-                    b.ToTable("Payment");
+                    b.ToTable("Payments");
                 });
 
             modelBuilder.Entity("DoAn_API.Data.Specialization", b =>

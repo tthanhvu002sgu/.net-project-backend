@@ -17,6 +17,48 @@
   },
   {
     "ContainingType": "DoAn_API.Controllers.AppointmentController",
+    "Method": "CheckDoubleBooking",
+    "RelativePath": "api/Appointment/check-double-booking",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "patientEmail",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "date",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "time",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DoAn_API.Controllers.AppointmentController",
+    "Method": "GetBookedSlotsByDoctorEmail",
+    "RelativePath": "api/Appointment/get-booked-slots/{doctorEmail}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "doctorEmail",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DoAn_API.Controllers.AppointmentController",
     "Method": "GetAppointmentsByDoctorEmail",
     "RelativePath": "api/Appointment/get-by-doctor-email/{email}",
     "HttpMethod": "GET",
@@ -41,6 +83,42 @@
     "Parameters": [
       {
         "Name": "email",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DoAn_API.Controllers.AppointmentController",
+    "Method": "RejectAppointment",
+    "RelativePath": "api/Appointment/reject",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "doctorEmail",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "patientEmail",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "date",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "time",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "rejectionReason",
         "Type": "System.String",
         "IsRequired": true
       }
