@@ -206,6 +206,27 @@
   },
   {
     "ContainingType": "DoAn_API.Controllers.DoctorController",
+    "Method": "UpdateDoctor",
+    "RelativePath": "api/Doctor/update",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "doctorVM",
+        "Type": "DoAn_API.Models.DoctorVM",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DoAn_API.Controllers.DoctorController",
     "Method": "UpdateAvailability",
     "RelativePath": "api/Doctor/update-availability",
     "HttpMethod": "PUT",
@@ -243,16 +264,6 @@
   },
   {
     "ContainingType": "DoAn_API.Controllers.PatientsController",
-    "Method": "GetAllPatients",
-    "RelativePath": "api/Patients",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "DoAn_API.Controllers.PatientsController",
     "Method": "GetPatientByEmail",
     "RelativePath": "api/Patients/{email}",
     "HttpMethod": "GET",
@@ -281,6 +292,16 @@
         "IsRequired": true
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DoAn_API.Controllers.PatientsController",
+    "Method": "GetAllPatients",
+    "RelativePath": "api/Patients/Get-all",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   },
   {

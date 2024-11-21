@@ -1,4 +1,5 @@
-﻿using DoAn_API.Services;
+﻿using DoAn_API.Models;
+using DoAn_API.Services;
 using Firebase.Auth;
 using Firebase.Storage;
 using Microsoft.AspNetCore.Mvc;
@@ -137,7 +138,23 @@ namespace DoAn_API.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+        [HttpPut("update")]
+        public async Task<IActionResult> UpdateDoctor(string email, [FromBody] DoctorVM doctorVM)
+        {
+            if (doctorVM == null || string.IsNullOrEmpty(email))
+            {
+                return BadRequest("Invalid data.");
+            }
 
+            var result = await _doctorRepository.UpdateDoctorAsync(email, doctorVM);
+
+            if (!result)
+            {
+                return NotFound($"Doctor with email {email} not found.");
+            }
+
+            return Ok("Doctor information updated successfully.");
+        }
         [HttpPut("update-availability")]
         public async Task<IActionResult> UpdateAvailability([FromQuery] string doctorEmail, [FromQuery] bool isAvailable)
         {

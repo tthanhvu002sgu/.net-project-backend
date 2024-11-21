@@ -10,7 +10,7 @@
         public double experience { get; set; }
         public double bookingFee { get; set; }
         public string doctorAbout { get; set; }
-        public bool isAvailable { get; set; }
+        public bool? isAvailable { get; set; }
 
         //relationship
 

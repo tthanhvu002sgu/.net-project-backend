@@ -102,8 +102,24 @@ namespace DoAn_API.Services
             throw new NotImplementedException();
         }
 
-        public void Update(int doctorId, DoctorVM doctor)
+        public async Task<bool> UpdateDoctorAsync(string email, DoctorVM doctorVM)
         {
+            var doctor = await _context.Doctors.FirstOrDefaultAsync(d => d.email == email);
+            if (doctor == null)
+            {
+                return false; // Doctor not found
+            }
+
+            // Update the doctor's details
+            doctor.specializationName = doctorVM.specializationName;
+            doctor.doctorName = doctorVM.doctorName;
+            doctor.degree = doctorVM.degree;
+            doctor.experience = doctorVM.experience;
+            doctor.bookingFee = doctorVM.bookingFee;
+            doctor.doctorAbout = doctorVM.doctorAbout;
+
+            await _context.SaveChangesAsync();
+            return true;
         }
 
 

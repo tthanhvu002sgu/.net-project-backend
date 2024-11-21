@@ -33,12 +33,7 @@ namespace DoAn_API.Services
             }
         }
 
-        //public List<PatientVM> GetAll()
-        //{
 
-        //    var patients = _context.Patients.Select(patient => new PatientVM { userId = patient.patientId, email = patient.email, password = patient.password, image = patient.image, phoneNumber = patient.phoneNumber, fullName = patient.fullName, address = patient.address, gender = patient.gender, dob = patient.dob });
-        //    return patients.ToList();
-        //}
 
         public async Task<ApplicationUser> GetPatientByEmailAsync(string email)
         {
@@ -62,9 +57,11 @@ namespace DoAn_API.Services
         }
 
 
-        public List<PatientVM> GetAll()
+        public List<ApplicationUser> GetAll()
         {
-            throw new NotImplementedException();
+            var patients = _userManager.Users.Where(u => !u.Email.EndsWith("@doctor.hospital.com")).ToList();
+            //var patients = await _userManager.Users.Where(u => !u.Email.EndsWith("@doctor.hospital.com")).Select(u => u).ToListAsync();
+            return patients;
         }
 
 

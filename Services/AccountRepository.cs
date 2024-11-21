@@ -189,7 +189,7 @@ namespace DoAn_API.Services
                         experience = (double)doctorVM.experience,
                         bookingFee = (double)doctorVM.bookingFee,
                         doctorAbout = doctorVM.doctorAbout,
-                        isAvailable = doctorVM.isAvailable,
+                        isAvailable = (bool)doctorVM.isAvailable,
                     };
                     _context.Doctors.Add(doctor);
                 }

@@ -1,6 +1,5 @@
 ﻿using DoAn_API.Data;
 using DoAn_API.Services;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DoAn_API.Controllers
@@ -17,8 +16,7 @@ namespace DoAn_API.Controllers
         }
 
         // GET: api/patients [admin]
-        [HttpGet]
-        [Authorize(Roles = AppRole.Admin)]
+        [HttpGet("Get-all")]
         public IActionResult GetAllPatients()
         {
             return Ok(_patientRepository.GetAll());

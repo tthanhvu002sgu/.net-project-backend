@@ -8,10 +8,11 @@ namespace DoAn_API.Services
         Task<List<DoctorVM>> GetAllDoctorsAsync();
         Task<DoctorVM> GetDoctorByEmail(string doctorEmail);
         Task<List<DoctorVM>> GetDoctorsBySpecializationAsync(string specialization);
-        void Update(int doctorId, DoctorVM doctor);
+        Task<bool> UpdateDoctorAsync(string email, DoctorVM doctorVM);
         Task<bool> UpdateAvailabilityAsync(string doctorEmail, bool isAvailable);
         void Delete(int id);
         Task<int> GetDoctorIdByEmail(string doctorEmail);
         Task<ApplicationUser> GetDoctorInfoByEmail(string doctorEmail);
+
     }
 }
