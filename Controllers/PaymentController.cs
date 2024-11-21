@@ -69,23 +69,23 @@ namespace DoAn_API.Controllers
 
         [HttpPost]
         [Route("VNPay")]
-        //public IActionResult PayWithOnline(VNPayRequest model)
-        //{
-        //    model.OrderId = new Random().Next(1000, 10000);
-        //    model.CreatedDate = DateTime.Now;
-        //    PaymentVM entity = new PaymentVM
-        //    {
-
-        //        paymentId = model.OrderId,
-        //        userId = model.userId,
-        //        Price = (decimal)model.Amount,
-        //        paymentMethod = "VNPAY",
-        //        paymentStatus = "Chưa thanh toán"
-        //    };
-        //    _paymentRepository.Add(entity);
-        //    var returnUrl = _vnPayRepository.CreatePaymentUrl(HttpContext, model);
-        //    return Ok(returnUrl);
-        //}
+        public IActionResult PayWithOnline(VNPayRequest model)
+        {
+            model.OrderId = new Random().Next(1000, 10000);
+            model.CreatedDate = DateTime.Now;
+            PaymentVM entity = new PaymentVM
+            {
+                paymentId = model.OrderId,
+                patientId = model.userId,
+                appointmentId = model.AppointmentId,
+                price = (decimal)model.Amount,
+                paymentMethod = "VNPAY",
+                paymentStatus = "Chưa thanh toán"
+            };
+            _paymentRepository.Add(entity);
+            var returnUrl = _vnPayRepository.CreatePaymentUrl(HttpContext, model);
+            return Ok(returnUrl);
+        }
 
         [HttpGet]
         [Route("PaymentCallBack")]

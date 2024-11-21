@@ -19,8 +19,9 @@
         public string Fullname { get; set; }
         public string Description { get; set; }
         public double Amount { get; set; }
+        public int AppointmentId { get; set; }
 
-        public int userId { get; set; }
+        public string userId { get; set; }
 
         public DateTime CreatedDate { get; set; }
     }

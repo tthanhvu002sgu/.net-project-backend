@@ -3,8 +3,7 @@
     public class Payment
     {
 
-        public int patientId { get; set; }
-        public string patientEmail { get; set; }
+        public string patientId { get; set; }
         public int appointmentId { get; set; }
         public int paymentId { get; set; }
         public decimal price { get; set; }

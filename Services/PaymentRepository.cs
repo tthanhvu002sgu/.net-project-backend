@@ -18,8 +18,7 @@ namespace DoAn_API.Services
 
             var newPayment = new Payment
             {
-                patientId = (int)payment.patientId,
-                patientEmail = payment.patientEmail,
+                patientId = payment.patientId,
                 appointmentId = payment.appointmentId,
                 paymentId = _context.Payments.Count() + 1,
                 price = payment.price,
@@ -32,7 +31,7 @@ namespace DoAn_API.Services
             _context.SaveChanges();
             return new PaymentVM
             {
-                patientId = (int)payment.patientId,
+                patientId = payment.patientId,
                 patientEmail = payment.patientEmail,
                 appointmentId = payment.appointmentId,
                 paymentId = _context.Payments.Count() + 1,
@@ -56,8 +55,7 @@ namespace DoAn_API.Services
         {
             var payments = _context.Payments.Select(payment => new PaymentVM
             {
-                patientId = (int)payment.patientId,
-                patientEmail = payment.patientEmail,
+                patientId = payment.patientId,
                 appointmentId = payment.appointmentId,
                 paymentId = _context.Payments.Count() + 1,
                 price = payment.price,
@@ -74,8 +72,7 @@ namespace DoAn_API.Services
             {
                 return new PaymentVM
                 {
-                    patientId = (int)payment.patientId,
-                    patientEmail = payment.patientEmail,
+                    patientId = payment.patientId,
                     appointmentId = payment.appointmentId,
                     paymentId = _context.Payments.Count() + 1,
                     price = payment.price,
@@ -92,8 +89,7 @@ namespace DoAn_API.Services
             if (pay != null)
             {
 
-                pay.patientId = (int)payment.patientId;
-                pay.patientEmail = payment.patientEmail;
+                pay.patientId = payment.patientId;
                 pay.appointmentId = payment.appointmentId;
                 pay.paymentId = _context.Payments.Count() + 1;
                 pay.price = payment.price;
