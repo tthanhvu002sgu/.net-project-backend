@@ -66,6 +66,13 @@ namespace DoAn_API.Controllers
             return NoContent();
         }
 
+        [HttpPut("confirm")]
+        public IActionResult ConfirmPayment(string status, int paymentId)
+        {
+            _paymentRepository.UpdateStatus(status,paymentId);
+            return NoContent();
+        }
+
 
         [HttpPost]
         [Route("VNPay")]
@@ -84,7 +91,7 @@ namespace DoAn_API.Controllers
             };
             _paymentRepository.Add(entity);
             var returnUrl = _vnPayRepository.CreatePaymentUrl(HttpContext, model);
-            return Ok(returnUrl);
+            return Ok(new { AppointmentId = model.AppointmentId, ReturnUrl = returnUrl });
         }
 
         [HttpGet]

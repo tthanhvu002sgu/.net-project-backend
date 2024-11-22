@@ -15,7 +15,6 @@ namespace DoAn_API.Services
 
         public PaymentVM Add(PaymentVM payment)
         {
-
             var newPayment = new Payment
             {
                 patientId = payment.patientId,
@@ -83,6 +82,7 @@ namespace DoAn_API.Services
             return null;
         }
 
+
         public void Update(PaymentVM payment)
         {
             var pay = _context.Payments.SingleOrDefault(payment => payment.paymentId == payment.paymentId);
@@ -95,12 +95,14 @@ namespace DoAn_API.Services
                 pay.price = payment.price;
                 pay.paymentMethod = payment.paymentMethod;
                 pay.paymentStatus = payment.paymentStatus;
+                _context.SaveChanges();
             }
+
         }
 
         public void UpdateStatus(string status, int id)
         {
-            var payment = _context.Payments.SingleOrDefault(payment => payment.paymentId == payment.paymentId);
+            var payment = _context.Payments.SingleOrDefault(payment => payment.appointmentId == id);
             if (payment != null)
             {
                 payment.paymentStatus = status;

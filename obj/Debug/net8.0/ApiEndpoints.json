@@ -249,6 +249,27 @@
   },
   {
     "ContainingType": "DoAn_API.Controllers.PaymentController",
+    "Method": "ConfirmPayment",
+    "RelativePath": "api/Payment/confirm",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "status",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "paymentId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DoAn_API.Controllers.PaymentController",
     "Method": "PaymentCallBack",
     "RelativePath": "api/Payment/PaymentCallBack",
     "HttpMethod": "GET",
