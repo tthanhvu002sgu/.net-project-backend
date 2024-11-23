@@ -191,7 +191,21 @@ namespace DoAn_API.Repositories
 
             return true;
         }
+        public async Task<bool> cancelAppointmentAsync(string patientEmail, string date, string time)
+        {
 
+            var appointment = await _context.Appointments
+           .FirstOrDefaultAsync(a =>
+               a.patientEmail == patientEmail &&
+               a.date == date &&
+               a.time == time && a.appointmentStatus != Appointment.Status.Cancelled);
+            if (appointment == null) return false;
+
+            appointment.appointmentStatus = Appointment.Status.Cancelled;
+            _context.Appointments.Update(appointment);
+            await _context.SaveChangesAsync();
+            return true;
+        }
     }
 
 }

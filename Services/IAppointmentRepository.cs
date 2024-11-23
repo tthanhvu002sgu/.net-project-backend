@@ -13,5 +13,6 @@ namespace DoAn_API.Interfaces
         Task<int> GetTotalAppointmentsAsync();
         Task<bool> IsPatientDoubleBookingAsync(string patientEmail, string date, string time);
         Task<bool> RejectAppointmentAsync(string doctorEmail, string patientEmail, string date, string time, string rejectionReason);
+        Task<bool> cancelAppointmentAsync(string patientEmail, string date, string time);
     }
 }

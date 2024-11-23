@@ -17,6 +17,42 @@
   },
   {
     "ContainingType": "DoAn_API.Controllers.AppointmentController",
+    "Method": "cancelAppointmentAsync",
+    "RelativePath": "api/Appointment/cancel",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "patientEmail",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "date",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "time",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Boolean",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DoAn_API.Controllers.AppointmentController",
     "Method": "CheckDoubleBooking",
     "RelativePath": "api/Appointment/check-double-booking",
     "HttpMethod": "POST",

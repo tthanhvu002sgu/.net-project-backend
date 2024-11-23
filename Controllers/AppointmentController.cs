@@ -112,7 +112,11 @@ namespace DoAn_API.Controllers
 
             return Ok(new { message = "Time slot is available." });
         }
-
+        [HttpPost("cancel")]
+        public async Task<bool> cancelAppointmentAsync(string patientEmail, string date, string time)
+        {
+            return await _appointmentRepository.cancelAppointmentAsync(patientEmail, date, time);
+        }
 
         [HttpPost("reject")]
         public async Task<IActionResult> RejectAppointment(
